@@ -1,0 +1,17 @@
+random object concept
+z = Math.random
+
+kans om object 1 te spawnen is a
+if z is 0 tot a
+spawn object1 gebruik het algoritme van object1 voor het bepalen van zijn spawn locatie
+		
+kans om object 2 te spawnen is b
+if z is a tot b
+spawn object2 gebruik het algoritme van object2 voor het bepalen van zijn spawn locatie
+		
+kans om object laatste te spawnen = 1-de kans op een ander object
+als niet al een ander object word gespawned spawn dan objectLaatste en gebruik het algoritme van 
+objectLaatste voor het bepalen van zijn locatie
+		
+voorbeeld van locatie algoritme spike spawned op y0 en zijn xpositie is willekeurig
+dan zou xPositie = (Math.Random * breedteCanvas) een manier kunnen zijn om de xPositie willekeurig te maken
