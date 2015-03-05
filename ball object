@@ -2,8 +2,8 @@ public class Ball extends GameObject {
 	
 	/**
 	 * maakt de bal aan
-	 * @param x
-	 * @param y
+	 * @param x (coordinaat)
+	 * @param y (coordinaat)
 	 */
 	public Ball(int x, int y) {
 		super();
