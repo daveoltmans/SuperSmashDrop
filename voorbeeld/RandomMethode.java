@@ -36,17 +36,19 @@ public class RandomMethode {
 		//Genereerd 1 of 0
 		int r = (int) (Math.random()*2);
 		System.out.println(r);
-		//als r 0 is dan komt het gat 1 naar links
-		if (r == 0){
-			nieuwGat = plaatsGat-1;
+		
+		//als r 0 is en de plaats van het gat van de vorige rij 0(helemaal links) dan is het nieuwe gat op plaats 4
+		if(r==0&&plaatsGat == 0){
+			nieuwGat = 4;
 		}
 		//als r 1 is en de plaats van het gat van de vorige rij 4 is(helemaal rechts) dan is het nieuwe gat op plaats 0
 		else if(r == 1&&plaatsGat == 4){
 			nieuwGat = 0;
 		}
-		//als r 0 is en de plaats van het gat van de vorige rij 0(helemaal links) dan is het nieuwe gat op plaats 4
-		else if(r==0&&plaatsGat == 0){
-			nieuwGat = 4;
+		//als r 0 is dan komt het gat 1 naar links
+		
+		else if (r == 0){
+			nieuwGat = plaatsGat-1;
 		}
 		//als dat allemaal niet waar is gaat het gat 1 naar links
 		else{
