@@ -2,8 +2,8 @@ package com.example.epicfalldown;
 
 import com.epicfalldown.FallDownGame.FallDownGameBoardView;
 import com.epicfalldown.FallDownGame.GameFallDown;
-
 import com.example.epicfalldown.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +20,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private GameFallDown game;
 	private FallDownGameBoardView gameView;
-	private TextView scoreLabel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,9 +48,6 @@ public class MainActivity extends Activity {
 	 * 
 	 * @param newScore  The new score.
 	 */
-	public void updateScoreLabel(int newScore) {
-		scoreLabel.setText("Score: " + newScore);
-	}
 
 	/**
 	 * Returns the view on the game board.

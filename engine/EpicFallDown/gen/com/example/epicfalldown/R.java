@@ -1537,11 +1537,6 @@ containing a value of this type.
          */
         public static final int abc_text_size_title_material_toolbar=0x7f070012;
         /**  Default screen margins, per the Android Design guidelines. 
-
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
          */
         public static final int activity_horizontal_margin=0x7f07002b;
         public static final int activity_vertical_margin=0x7f07002c;
@@ -1632,7 +1627,12 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_launcher=0x7f020033;
+        public static final int cell=0x7f020033;
+        public static final int ic_launcher=0x7f020034;
+        public static final int leaf=0x7f020035;
+        public static final int rock=0x7f020036;
+        public static final int rock2=0x7f020037;
+        public static final int wombat=0x7f020038;
     }
     public static final class id {
         public static final int action_bar=0x7f090031;
@@ -1826,22 +1826,6 @@ containing a value of this type.
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f0b00eb;
         /**  Application theme. 
