@@ -13,7 +13,7 @@ import android.util.Log;
  * @author Jan Stroet
  */
 public class Leaf extends GameObject {
-	public static final String LEAF_IMAGE = "Leaf";
+	public static final String LEAF_IMAGE = "";
 
 	/** Returns the ImageId of the image to show. */
 	@Override

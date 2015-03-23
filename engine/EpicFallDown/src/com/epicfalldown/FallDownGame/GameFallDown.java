@@ -10,8 +10,10 @@ import android.util.Log;
 
 import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
+import com.epicfalldown.objects.Spike;
 import com.example.epicfalldown.Game;
 import com.example.epicfalldown.GameBoard;
+import com.example.epicfalldown.GameObject;
 import com.example.epicfalldown.MainActivity;
 
 public class GameFallDown extends Game {
@@ -90,7 +92,6 @@ public class GameFallDown extends Game {
 						GameBoard board = getGameBoard();
 						UpdateSpikes();
 						board.updateView();
-
 					}
 				});
 			}
@@ -109,9 +110,9 @@ public class GameFallDown extends Game {
 
 			timerCount++;
 			Log.d(TAG, timerCount + "# TimerTask Created");
-			t.scheduleAtFixedRate(tTask, 0, 1500);
+			t.scheduleAtFixedRate(tTask, 0, 3000);
 
-			t.scheduleAtFixedRate(tTask2, 0, 500);
+			t.scheduleAtFixedRate(tTask2, 0, 1000);
 
 			running = true;
 		} else {
@@ -160,14 +161,23 @@ public class GameFallDown extends Game {
 				int y = j;
 
 				// methode om het hele array te checken voor object
-				if (board.getObject(x, y) instanceof Ball
-						&& board.getObject(x, (y + 1)) instanceof Balk) {
+				if ((board.getObject(x, y) instanceof Ball)
+						&& ((board.getObject(x, (y + 1)) instanceof Balk))) {
 					board.moveObject(board.getObject(x, y), x, (y - 1));
-					Log.d(TAG, "ball has moved");
-				} else if (board.getObject(k, j) instanceof Balk) {
+					Log.d(TAG, "Object (Ball) has moved");
+				}
+				else if ((board.getObject(x, y) instanceof Ball)
+						&& ((board.getObject(x, (y + 1)) instanceof Spike))) {
+					board.removeObject(board.getObject(k, j));
+					Log.d(TAG, "Player is kill");
+				}
+				else if ((board.getObject(k, j) instanceof Balk) || 
+						(board.getObject(k, j) instanceof Spike)) {
 					board.moveObject(board.getObject(k, j), x, (y - 1));
-					Log.d(TAG, "Object has moved");
-				} else if (board.getObject(k, j) == null) {
+					Log.d(TAG, "Object (obstacle) has moved");
+				}
+				
+				else if (board.getObject(k, j) == null) {
 					Log.d(TAG, "Geen object");
 				}
 			}
@@ -192,44 +202,60 @@ public class GameFallDown extends Game {
 		if (i == 0) {
 
 			GameBoard board = getGameBoard();
-			board.addGameObject(new Balk(), 1, 12);
-			board.addGameObject(new Balk(), 2, 12);
-			board.addGameObject(new Balk(), 3, 12);
-			board.addGameObject(new Balk(), 4, 12);
+			board.addGameObject(returnRandomObject(), 1, 12);
+			board.addGameObject(returnRandomObject(), 2, 12);
+			board.addGameObject(returnRandomObject(), 3, 12);
+			board.addGameObject(returnRandomObject(), 4, 12);
 		} else if (i == 1) {
 
 			GameBoard board = getGameBoard();
-			board.addGameObject(new Balk(), 0, 12);
-			board.addGameObject(new Balk(), 1, 12);
-			board.addGameObject(new Balk(), 2, 12);
-			board.addGameObject(new Balk(), 3, 12);
+			board.addGameObject(returnRandomObject(), 0, 12);
+			board.addGameObject(returnRandomObject(), 1, 12);
+			board.addGameObject(returnRandomObject(), 2, 12);
+			board.addGameObject(returnRandomObject(), 3, 12);
 		}
 
 		else if (i == 2) {
 
 			GameBoard board = getGameBoard();
-			board.addGameObject(new Balk(), 0, 12);
-			board.addGameObject(new Balk(), 2, 12);
-			board.addGameObject(new Balk(), 3, 12);
-			board.addGameObject(new Balk(), 4, 12);
+			board.addGameObject(returnRandomObject(), 0, 12);
+			board.addGameObject(returnRandomObject(), 2, 12);
+			board.addGameObject(returnRandomObject(), 3, 12);
+			board.addGameObject(returnRandomObject(), 4, 12);
 		}
 
 		else if (i == 3) {
 
 			GameBoard board = getGameBoard();
-			board.addGameObject(new Balk(), 0, 12);
-			board.addGameObject(new Balk(), 1, 12);
-			board.addGameObject(new Balk(), 3, 12);
-			board.addGameObject(new Balk(), 4, 12);
+			board.addGameObject(returnRandomObject(), 0, 12);
+			board.addGameObject(returnRandomObject(), 1, 12);
+			board.addGameObject(returnRandomObject(), 3, 12);
+			board.addGameObject(returnRandomObject(), 4, 12);
 		}
 
 		else {
 
 			GameBoard board = getGameBoard();
-			board.addGameObject(new Balk(), 0, 12);
-			board.addGameObject(new Balk(), 1, 12);
-			board.addGameObject(new Balk(), 2, 12);
-			board.addGameObject(new Balk(), 4, 12);
+			board.addGameObject(returnRandomObject(), 0, 12);
+			board.addGameObject(returnRandomObject(), 1, 12);
+			board.addGameObject(returnRandomObject(), 2, 12);
+			board.addGameObject(returnRandomObject(), 4, 12);
+		}
+	}
+	
+	/**
+	 * Has a one-in-twenty chance to return a spike object instead of a bar
+	 * @return
+	 */
+	public GameObject returnRandomObject(){
+		int number = (int) (Math.random() * 20);
+		if (number == 10)
+		{
+			return new Spike();
+		}
+		else
+		{
+			return new Balk();
 		}
 	}
 
@@ -249,7 +275,6 @@ public class GameFallDown extends Game {
 	public int randomNumber() {
 		int number = (int) (Math.random() * 5);
 		Log.d(TAG, (Integer.toString(number)));
-		int i = 4;
 		return number;
 	}
 }

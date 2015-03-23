@@ -132,6 +132,10 @@ public class Ball extends GameObject {
 				gameBoard.removeObject(objectAtNewPos);
 				((GameFallDown) gameBoard.getGame()).increaseScore(1);
 			}
+			
+			if (objectAtNewPos.getObjectType() == Type.KillingObstacle){
+				gameBoard.removeObject(gameBoard.getObject(getPositionX(), getPositionY()));
+			}
 		}
 
 		// Move wombat to the new position and redraw the app

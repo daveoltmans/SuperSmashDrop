@@ -79,7 +79,7 @@ public abstract class GameObject {
 	 * @return The Type of this GameObject
 	 */
 	public abstract Type getObjectType();
-
+	
 	/**
 	 * The ImageID (used in calling GameBoardView.loadTile) of the image to show
 	 * for this game object.
