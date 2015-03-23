@@ -3,11 +3,11 @@ package com.epicfalldown.objects;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
 
-public class Spike extends GameObject{
+public class Balk extends GameObject{
 	
 	public static final String ROCK_IMAGE = "Rock";
 	
-	public Spike() {
+	public Balk() {
 		super();
 	}
 
@@ -20,6 +20,14 @@ public class Spike extends GameObject{
 	public void onTouched(GameBoard gameBoard) {
 		gameBoard.updateView();
 		
+	}
+	
+	/**
+	 * Gets the ObjectType for the Spike object
+	 */
+	@Override
+	public Type getObjectType() {
+		return Type.Obstacle;
 	}
 
 }

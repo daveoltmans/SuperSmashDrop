@@ -33,7 +33,7 @@ public abstract class GameBoardView extends View implements Observer {
 	private static final String TAG = "Playground";
 
 	/** When true, the number of tiles in the view remains the same. */
-	private boolean fixedGrid = true;
+	private boolean fixedGrid = false;
 
 	/** Number of tiles in X-direction. */ 
 	private int tileCountX = 10;

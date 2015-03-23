@@ -34,8 +34,6 @@ public class Ball extends GameObject {
 	 */
 
 	public Ball() {
-		x = 2;
-		y = 4;
 		isHit = false;
 	}
 	
@@ -96,36 +94,6 @@ public class Ball extends GameObject {
 	 * Update Methode die booleans checkt
 	 * 
 	 */
-	public void update() {
-		if (left) {
-			x = x - 1;
-			if (x <= 0) {
-				x = 0;
-			}
-		}
-		if (right) {
-			x = x + 1;
-			if (x >= 4) {
-				x = 4;
-			}
-		}
-
-		if (up) {
-			y = y - 1;
-			if (y <= 0) {
-				y = 0;
-			}
-		}
-		if (down) {
-
-			y = y + 1;
-			if (y >= 17) {
-				y = 17;
-				isHit = true; 
-			}
-		}
-
-	}
 
 	@Override
 	public String getImageId() {
@@ -136,14 +104,17 @@ public class Ball extends GameObject {
 	public void onTouched(GameBoard gameBoard) {
 
 		Log.d(GameFallDown.TAG, "Touched wombat");
-
+		
 		// Wombats always move a square to the right
 		int newPosX = getPositionX() + 1;
 		int newPosY = getPositionY();
 
 		// If new position is over the edge of the board, do nothing
-		if (newPosX >= gameBoard.getWidth()) {
-			return;
+		if (newPosX >= 5) {
+			newPosX = 0;
+		}
+		if (newPosX < 0){
+			newPosX = gameBoard.getWidth();
 		}
 
 		// Check if there is a object on the new position
@@ -151,20 +122,29 @@ public class Ball extends GameObject {
 		if (objectAtNewPos != null) {
 
 			// Wombats can't move through rocks
-			if (objectAtNewPos instanceof Spike) {
-				isHit = true;
+			if (objectAtNewPos.getObjectType() == Type.Obstacle) {
+				gameBoard.updateView();
+				return;
 			}
 
 			// Caught a leaf? Score!
-			if (objectAtNewPos instanceof Leaf) {
+			if (objectAtNewPos.getObjectType() == Type.PowerUp) {
 				gameBoard.removeObject(objectAtNewPos);
-				((GameFallDown) gameBoard.getGame()).increaseScore();
+				((GameFallDown) gameBoard.getGame()).increaseScore(1);
 			}
 		}
 
 		// Move wombat to the new position and redraw the app
 		gameBoard.moveObject(this, newPosX, newPosY);
 		gameBoard.updateView();
+	}
+	
+	/**
+	 * Gets the ObjectType for the Spike object
+	 */
+	@Override
+	public Type getObjectType() {
+		return Type.Ball;
 	}
 
 }

@@ -2,6 +2,8 @@ package com.example.epicfalldown;
 
 import java.util.Observable;
 
+import com.epicfalldown.objects.Ball;
+
 import android.util.Log;
 
 /**
@@ -95,8 +97,14 @@ public abstract class GameBoard extends Observable {
 					"Destination already contains an object");
 		}
 		
+		
+		
 		if (newY == 0) {
 			removeObject(obj);
+			if (obj instanceof Ball){
+				
+			}
+			
 		} else if (newY != 0) {
 			gameBoard[newX][newY] = obj;
 			obj.setPosition(newX, newY);

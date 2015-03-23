@@ -40,7 +40,7 @@ public class Leaf extends GameObject {
 		if (objectAtNewPos != null) {
 
 			// Leafs can't move through rocks or wombats
-			if ((objectAtNewPos instanceof Spike) || 
+			if ((objectAtNewPos instanceof Balk) || 
 			    (objectAtNewPos instanceof Ball)){
 				return;
 			}
@@ -49,5 +49,13 @@ public class Leaf extends GameObject {
 		// Move leaf to the new position and redraw the app
 		gameBoard.moveObject(this, newPosX, newPosY);
 		gameBoard.updateView();
+	}
+	
+	/**
+	 * Gets the ObjectType for the Spike object
+	 */
+	@Override
+	public Type getObjectType() {
+		return Type.PowerUp;
 	}
 }

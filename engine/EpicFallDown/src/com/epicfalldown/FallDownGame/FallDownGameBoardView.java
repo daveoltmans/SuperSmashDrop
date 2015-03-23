@@ -3,7 +3,7 @@ package com.epicfalldown.FallDownGame;
 import com.epicfalldown.View.GameBoardView;
 import com.epicfalldown.View.SpriteCache;
 import com.epicfalldown.objects.Ball;
-import com.epicfalldown.objects.Spike;
+import com.epicfalldown.objects.Balk;
 import com.example.epicfalldown.R;
 
 import android.content.Context;
@@ -43,12 +43,12 @@ public class FallDownGameBoardView extends GameBoardView {
 
 		SpriteCache spriteCache = SpriteCache.getInstance(); 
 		spriteCache.setContext(this.getContext());		
-
+		
 		// Load the 'empty' cell bitmap and tell the tile view that this is the
 		// image to use for cells without GameObject
 		spriteCache.loadTile("empty", R.drawable.cell);
 		spriteCache.loadTile(Ball.WOMBAT_IMAGE, R.drawable.wombat);
-		spriteCache.loadTile(Spike.ROCK_IMAGE, R.drawable.rock);
+		spriteCache.loadTile(Balk.ROCK_IMAGE, R.drawable.rock);
 		setEmptyTile("empty");
 		
 		// Load the images for the GameObjects

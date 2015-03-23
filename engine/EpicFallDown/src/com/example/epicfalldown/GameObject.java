@@ -24,6 +24,32 @@ public abstract class GameObject {
 	
 	/** Y-coordinate of the tile this object is at on the game board. */
 	private int positionY;
+	
+	/**
+	 * Collection of GameObject types
+	 */
+	public enum Type { 
+		/**
+		 * The SuperSmashDrop ball
+		 */
+		Ball, 
+		/**
+		 * Generic, non-killing obstacles (e.g. wooden bars)
+		 */
+		Obstacle, 
+		/**
+		 * All obstacles that result in an immediate Game Over when touched by the Type.Ball
+		 */
+		KillingObstacle, 
+		/**
+		 * Non-hindering objects that reward the player when touched by the Type.Ball
+		 */
+		PowerUp, 
+		/**
+		 * Objects that penalise the player when touched by the Type.Ball (e.g. the Poison Mushrooms from the Super Mario series)
+		 */
+		PowerDown 
+		};
 
 	/**
 	 * Initializes GameObject. Its position is (0,0) by default, but you will
@@ -47,6 +73,12 @@ public abstract class GameObject {
 	public int getPositionY() {
 		return positionY;
 	}
+	
+	/**
+	 * Gets the GameObject type for this object. This is useful in determining what kind of object (e.g. something that kills the player, something that helps the player, etcetera) this is.
+	 * @return The Type of this GameObject
+	 */
+	public abstract Type getObjectType();
 
 	/**
 	 * The ImageID (used in calling GameBoardView.loadTile) of the image to show

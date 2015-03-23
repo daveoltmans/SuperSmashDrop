@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private GameFallDown game;
 	private FallDownGameBoardView gameView;
+	private TextView scoreLabel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -30,6 +31,7 @@ public class MainActivity extends Activity {
 
 		// Find some of the user interface elements
 		gameView = (FallDownGameBoardView) findViewById(R.id.game);
+		scoreLabel = (TextView) findViewById(R.id.scoreTextView);
 
 		// Create the game object. This contains all data and functionality
 		// belonging to the game
@@ -48,6 +50,10 @@ public class MainActivity extends Activity {
 	 * 
 	 * @param newScore  The new score.
 	 */
+
+	public void updateScoreLabel(int newScore) {
+		scoreLabel.setText("Score: " + newScore);
+	}
 
 	/**
 	 * Returns the view on the game board.

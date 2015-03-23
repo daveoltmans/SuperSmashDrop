@@ -4,7 +4,7 @@ import com.example.epicfalldown.GameBoard;
 
 public class GameFalldownBoard extends GameBoard {
 	private static final int GAMEBOARD_WIDTH = 5;
-	private static final int GAMEBOARD_HEIGHT = 18;
+	private static final int GAMEBOARD_HEIGHT = 13;
 
 	/**
 	 * Create a new game board.
