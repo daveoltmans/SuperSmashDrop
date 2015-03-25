@@ -52,7 +52,7 @@ public class Leaf extends GameObject {
 	}
 	
 	/**
-	 * Gets the ObjectType for the Spike object
+	 * Gets the ObjectType for the Leaf object
 	 */
 	@Override
 	public Type getObjectType() {

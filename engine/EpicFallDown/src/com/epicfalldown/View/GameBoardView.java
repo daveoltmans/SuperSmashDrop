@@ -208,7 +208,7 @@ public abstract class GameBoardView extends View implements Observer {
 				}
 			}
 		}
-
+		
 		return super.onTouchEvent(event);
 	}
 	

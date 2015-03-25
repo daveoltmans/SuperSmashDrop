@@ -23,7 +23,7 @@ public class Balk extends GameObject{
 	}
 	
 	/**
-	 * Gets the ObjectType for the Spike object
+	 * Gets the ObjectType for the Balk (bar) object
 	 */
 	@Override
 	public Type getObjectType() {

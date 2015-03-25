@@ -1,8 +1,5 @@
 package com.epicfalldown.objects;
 
-import android.util.Log;
-
-import com.epicfalldown.FallDownGame.GameFallDown;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
 
@@ -101,50 +98,10 @@ public class Ball extends GameObject {
 	}
 
 	@Override
-	public void onTouched(GameBoard gameBoard) {
-
-		Log.d(GameFallDown.TAG, "Touched wombat");
-		
-		// Wombats always move a square to the right
-		int newPosX = getPositionX() + 1;
-		int newPosY = getPositionY();
-
-		// If new position is over the edge of the board, do nothing
-		if (newPosX >= 5) {
-			newPosX = 0;
-		}
-		if (newPosX < 0){
-			newPosX = gameBoard.getWidth();
-		}
-
-		// Check if there is a object on the new position
-		GameObject objectAtNewPos = gameBoard.getObject(newPosX, newPosY);
-		if (objectAtNewPos != null) {
-
-			// Wombats can't move through rocks
-			if (objectAtNewPos.getObjectType() == Type.Obstacle) {
-				gameBoard.updateView();
-				return;
-			}
-
-			// Caught a leaf? Score!
-			if (objectAtNewPos.getObjectType() == Type.PowerUp) {
-				gameBoard.removeObject(objectAtNewPos);
-				((GameFallDown) gameBoard.getGame()).increaseScore(1);
-			}
-			
-			if (objectAtNewPos.getObjectType() == Type.KillingObstacle){
-				gameBoard.removeObject(gameBoard.getObject(getPositionX(), getPositionY()));
-			}
-		}
-
-		// Move wombat to the new position and redraw the app
-		gameBoard.moveObject(this, newPosX, newPosY);
-		gameBoard.updateView();
-	}
+	public void onTouched(GameBoard gameBoard) {}
 	
 	/**
-	 * Gets the ObjectType for the Spike object
+	 * Gets the ObjectType for the Ball object
 	 */
 	@Override
 	public Type getObjectType() {

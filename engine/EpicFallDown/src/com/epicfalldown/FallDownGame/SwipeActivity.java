@@ -1,22 +1,25 @@
-package nl.jellehoffman.swipetest;
+package com.epicfalldown.FallDownGame;
 
 
-import nl.jellehoffman.swipetest.SimpleGestureFilter.SimpleGestureListener;
+import com.epicfalldown.FallDownGame.SwipeGestureFilter.SimpleGestureListener;
+import com.epicfalldown.objects.Ball;
+import com.example.epicfalldown.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-public class Test2 extends Activity implements SimpleGestureListener{
-	private SimpleGestureFilter detector;
+public class SwipeActivity extends Activity implements SimpleGestureListener{
+	private SwipeGestureFilter detector;
     
     @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_swipe_test);
+            setContentView(R.layout.main);
       
             // Detect touched area 
-            detector = new SimpleGestureFilter(this,this);
+            detector = new SwipeGestureFilter(this,this);
     }
       
 @Override
@@ -31,10 +34,14 @@ public boolean dispatchTouchEvent(MotionEvent me){
   
   switch (direction) {
   
-  case SimpleGestureFilter.SWIPE_RIGHT : Ball.getPositionX = Ball.getPositionX +1 ;
-                                           break;
-  case SimpleGestureFilter.SWIPE_LEFT :  Ball.getPositionX = Ball.getPositionX -1;
-                                                 break;
+  case SwipeGestureFilter.SWIPE_RIGHT : 
+	  Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
+	  //Ball. = Ball.getPositionX() +1 ;
+	  break;
+  case SwipeGestureFilter.SWIPE_LEFT :
+	  Toast.makeText(this, "Left", Toast.LENGTH_SHORT).show();
+	  //Ball.getPositionX() = Ball.getPositionX() -1;
+	  break;
   
   }
    

@@ -6,6 +6,7 @@ package com.epicfalldown.FallDownGame;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.R.bool;
 import android.util.Log;
 
 import com.epicfalldown.objects.Ball;
@@ -15,6 +16,7 @@ import com.example.epicfalldown.Game;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
 import com.example.epicfalldown.MainActivity;
+import com.example.epicfalldown.GameObject.Type;
 
 public class GameFallDown extends Game {
 	/** Tag used for log messages */
@@ -141,6 +143,81 @@ public class GameFallDown extends Game {
 	}
 
 	/**
+	 * Moves the SuperSmashDrop ball in the direction provided. 
+	 * This method has built-in checks to prevent the ball from moving into an already occupied space.
+	 * 
+	 * @param swipeDirection 	The direction in which the ball should move (e.g. SwipeGestureFilter.SWIPE_LEFT)
+	 */
+	public void swipeBall(int swipeDirection)
+	{
+		GameBoard board = getGameBoard();
+		int x = 0, xNew = 0, y = 0;
+		
+		// Nested loop for determining the current position of the ball on the board
+		for (int w = 0; w < board.getWidth(); w++)
+		{
+			for (int h = 0; h < board.getHeight(); h++)
+			{
+				if (board.getObject(w, h) instanceof Ball)
+				{
+					x = w;
+					y = h;
+				}
+			}
+		}
+		
+		// Checks if the user swiped left or right
+		if (swipeDirection == SwipeGestureFilter.SWIPE_LEFT) xNew = x - 1;
+		else xNew = x + 1;
+		
+		// If new position is over the edge of the board, do nothing
+		if (xNew >= board.getWidth()) xNew = 0;
+		if (xNew < 0) xNew = board.getWidth() - 1;
+		
+		// Takes a cheeky peek at the new position on the board
+		GameObject objectAtNewPos = board.getObject(xNew, y);
+		
+		// Checks whether the next position of the ball is empty or not
+		if (objectAtNewPos != null)
+		{
+			// The ball can't move through bars :(
+			if (objectAtNewPos.getObjectType() == Type.Obstacle)
+			{
+				board.updateView();
+				return;
+			}
+
+			// Lucky! The ball just hit a Power-Up!
+			if (objectAtNewPos.getObjectType() == Type.PowerUp)
+			{
+				board.removeObject(objectAtNewPos);
+				((GameFallDown) board.getGame()).increaseScore(1);
+			}
+			
+			// Not so lucky, the ball just hit an obstacle which insta-kills!
+			if (objectAtNewPos.getObjectType() == Type.KillingObstacle)
+			{
+				board.removeObject(board.getObject(x, y));
+			}
+		}
+		else
+		{
+			// Move the ball and give the signal to redraw the board
+			board.moveObject(board.getObject(x, y), xNew, y);
+			board.updateView();
+		}
+	}
+	
+	/**
+	 * Ends the current game, either because the player quit, or because they lost.
+	 * @param wasKilled 	Determines if the player simply quit, or was killed.
+	 */
+	public void endCurrentGame(Boolean wasKilled)
+	{
+		// INSERT MAGIC HERE
+	}
+
+	/**
 	 * UpdateSpikes Verplaatst alle balken( heet nu nog spike) in de array, Als
 	 * er boven een balk een ball staat dan gaat de ball 1 y in de Array omhoog.
 	 * Als de bal aan het einde van het Array berijkt is de speler dood en word
@@ -150,8 +227,8 @@ public class GameFallDown extends Game {
 	public void UpdateSpikes() {
 		GameBoard board = getGameBoard();
 		// Update Methode
-		for (int k = 0; k < 5; k++) {
-			for (int j = 0; j < 13; j++) {
+		for (int k = 0; k < board.getWidth(); k++) {
+			for (int j = 0; j < board.getHeight(); j++) {
 				String StringX = Integer.toString(k);
 				String StringY = Integer.toString(j);
 				Log.d(TAG, "updating");
@@ -165,19 +242,17 @@ public class GameFallDown extends Game {
 						&& ((board.getObject(x, (y + 1)) instanceof Balk))) {
 					board.moveObject(board.getObject(x, y), x, (y - 1));
 					Log.d(TAG, "Object (Ball) has moved");
-				}
-				else if ((board.getObject(x, y) instanceof Ball)
+				} else if ((board.getObject(x, y) instanceof Ball)
 						&& ((board.getObject(x, (y + 1)) instanceof Spike))) {
-					board.removeObject(board.getObject(k, j));
+					board.removeObject(board.getObject(x, y));
 					Log.d(TAG, "Player is kill");
-				}
-				else if ((board.getObject(k, j) instanceof Balk) || 
-						(board.getObject(k, j) instanceof Spike)) {
-					board.moveObject(board.getObject(k, j), x, (y - 1));
+				} else if ((board.getObject(x, y) instanceof Balk)
+						|| (board.getObject(x, y) instanceof Spike)) {
+					board.moveObject(board.getObject(x, y), x, (y - 1));
 					Log.d(TAG, "Object (obstacle) has moved");
 				}
-				
-				else if (board.getObject(k, j) == null) {
+
+				else if (board.getObject(x, y) == null) {
 					Log.d(TAG, "Geen object");
 				}
 			}
@@ -242,19 +317,17 @@ public class GameFallDown extends Game {
 			board.addGameObject(returnRandomObject(), 4, 12);
 		}
 	}
-	
+
 	/**
 	 * Has a one-in-twenty chance to return a spike object instead of a bar
+	 * 
 	 * @return
 	 */
-	public GameObject returnRandomObject(){
+	public GameObject returnRandomObject() {
 		int number = (int) (Math.random() * 20);
-		if (number == 10)
-		{
+		if (number == 10) {
 			return new Spike();
-		}
-		else
-		{
+		} else {
 			return new Balk();
 		}
 	}

@@ -2,10 +2,14 @@ package com.example.epicfalldown;
 
 import com.epicfalldown.FallDownGame.FallDownGameBoardView;
 import com.epicfalldown.FallDownGame.GameFallDown;
+import com.epicfalldown.FallDownGame.SwipeGestureFilter;
+import com.epicfalldown.FallDownGame.SwipeGestureFilter.SimpleGestureListener;
 import com.example.epicfalldown.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +21,8 @@ import android.widget.Toast;
  * @author Paul de Groot
  * @author Jan Stroet
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SimpleGestureListener{
+	private SwipeGestureFilter detector;
 	private GameFallDown game;
 	private FallDownGameBoardView gameView;
 	private TextView scoreLabel;
@@ -28,6 +33,9 @@ public class MainActivity extends Activity {
 		// Load main.xml
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		// Detect touched area 
+        detector = new SwipeGestureFilter(this,this);
 
 		// Find some of the user interface elements
 		gameView = (FallDownGameBoardView) findViewById(R.id.game);
@@ -41,7 +49,7 @@ public class MainActivity extends Activity {
 		registerNewGameButton();
 
 		// Tell user to start the game
-		Toast.makeText(getApplicationContext(), "Lets start",
+		Toast.makeText(getApplicationContext(), "Let's start",
 				Toast.LENGTH_SHORT).show();
 	}
 
@@ -78,5 +86,46 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent me){
+	    // Call onTouchEvent of SimpleGestureFilter class
+	     this.detector.onTouchEvent(me);
+	   return super.dispatchTouchEvent(me);
+	}
+	
+	/**
+	 * 'Simulates' swiping left and right through the D-pad left/right buttons (also, physical keyboard!)
+	 */
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event)
+	{
+		switch (keyCode)
+		{
+			// Simulates left swipe
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+				game.swipeBall(SwipeGestureFilter.SWIPE_LEFT);
+				return true;
+			// Simulates right swipe
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				game.swipeBall(SwipeGestureFilter.SWIPE_RIGHT);
+				return true;
+			// Not left/right arrow, so let's send it back to the original method
+			default:
+				return super.onKeyUp(keyCode, event);
+		}
+	}
+	
+	/**
+	 * Catches the onSwipe event, and calls the GameFallDown.swipeBall() method in response
+	 */
+	@Override
+	public void onSwipe(int direction)
+	{
+		game.swipeBall(direction);
+	}
+	  
+	 @Override
+	 public void onDoubleTap(){}
 
 }
