@@ -17,12 +17,10 @@ public class Ball extends GameObject {
 	private int x;
 	private int y;
 
-	private boolean left;
-	private boolean right;
 	private boolean up;
 	private boolean down;
 	private boolean isHit;
-
+	
 	public static final String WOMBAT_IMAGE = "Wombat";
 
 	/**
@@ -47,12 +45,6 @@ public class Ball extends GameObject {
 	public int gety() {
 		return y;
 	}
-	public void setLeft(boolean b) {
-		left = b;
-	}
-	public void setRight(boolean b) {
-		right = b;
-	}
 	public void setUp(boolean b) {
 		up = b;
 	}
@@ -64,14 +56,6 @@ public class Ball extends GameObject {
 	}
 	
 	//Getters
-
-	public boolean getLeft() {
-		return left;
-	}
-
-	public boolean getRight() {
-		return right;
-	}
 
 	public boolean getUp() {
 		return up;

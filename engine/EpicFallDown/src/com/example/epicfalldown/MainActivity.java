@@ -59,8 +59,8 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 	 * @param newScore  The new score.
 	 */
 
-	public void updateScoreLabel(int newScore) {
-		scoreLabel.setText("Score: " + newScore);
+	public void updateScoreLabel() {
+		
 	}
 
 	/**

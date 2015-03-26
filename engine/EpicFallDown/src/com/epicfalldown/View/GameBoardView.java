@@ -5,9 +5,12 @@ import java.util.Observer;
 
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
+import com.epicfalldown.FallDownGame.*;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -328,5 +331,19 @@ public abstract class GameBoardView extends View implements Observer {
 				}
 			}
 		}
+		Paint textPaint = new Paint();
+		textPaint.setTextSize(32);
+		canvas.drawText(("Score: "+ GameFallDown.getScore()), 0, 32, textPaint);
+		this.setBackgroundColor(backgroundColor());
+	}
+	
+	public int backgroundColor(){
+		if(GameFallDown.getScore() < 256){
+			return Color.rgb(255,255,255 - GameFallDown.getScore());
+		}
+		else if ( GameFallDown.getScore() < 512){
+			return Color.rgb(255, 511 - GameFallDown.getScore(),0);
+		}
+		else return Color.rgb(255, 0, 0);
 	}
 }

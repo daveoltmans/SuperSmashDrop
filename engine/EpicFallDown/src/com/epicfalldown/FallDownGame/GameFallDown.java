@@ -12,6 +12,7 @@ import android.util.Log;
 import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
 import com.epicfalldown.objects.Spike;
+import com.epicfalldown.objects.Gat;
 import com.example.epicfalldown.Game;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
@@ -26,7 +27,7 @@ public class GameFallDown extends Game {
 	private MainActivity activity;
 
 	/** The number of leafs eaten. */
-	private int score;
+	private static int score;
 	private int timerCount;
 
 	boolean running = false;
@@ -246,12 +247,17 @@ public class GameFallDown extends Game {
 						&& ((board.getObject(x, (y + 1)) instanceof Spike))) {
 					board.removeObject(board.getObject(x, y));
 					Log.d(TAG, "Player is kill");
-				} else if ((board.getObject(x, y) instanceof Balk)
-						|| (board.getObject(x, y) instanceof Spike)) {
+				} else if ((board.getObject(x, y) instanceof Ball)
+						&& ((board.getObject(x, (y + 1)) instanceof Gat))) {
+					board.removeObject(board.getObject(x, y +1));
+					increaseScore(1);
+					Log.d(TAG, "BAL IN DOEL");
+				}
+				else if ((board.getObject(x, y) instanceof Balk)
+						|| (board.getObject(x, y) instanceof Spike)|| (board.getObject(x, y) instanceof Gat)) {
 					board.moveObject(board.getObject(x, y), x, (y - 1));
 					Log.d(TAG, "Object (obstacle) has moved");
 				}
-
 				else if (board.getObject(x, y) == null) {
 					Log.d(TAG, "Geen object");
 				}
@@ -260,7 +266,6 @@ public class GameFallDown extends Game {
 
 		board.updateView();
 		Log.d(TAG, "end of loop");
-		increaseScore(1);
 	}
 
 	/**
@@ -277,6 +282,8 @@ public class GameFallDown extends Game {
 		if (i == 0) {
 
 			GameBoard board = getGameBoard();
+			
+			board.addGameObject(new Gat(), 0, 12);
 			board.addGameObject(returnRandomObject(), 1, 12);
 			board.addGameObject(returnRandomObject(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
@@ -284,16 +291,20 @@ public class GameFallDown extends Game {
 		} else if (i == 1) {
 
 			GameBoard board = getGameBoard();
+
 			board.addGameObject(returnRandomObject(), 0, 12);
 			board.addGameObject(returnRandomObject(), 1, 12);
 			board.addGameObject(returnRandomObject(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
+			board.addGameObject(new Gat(), 4, 12);
 		}
 
 		else if (i == 2) {
 
 			GameBoard board = getGameBoard();
+			
 			board.addGameObject(returnRandomObject(), 0, 12);
+			board.addGameObject(new Gat(), 1, 12);
 			board.addGameObject(returnRandomObject(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
@@ -302,8 +313,10 @@ public class GameFallDown extends Game {
 		else if (i == 3) {
 
 			GameBoard board = getGameBoard();
+			
 			board.addGameObject(returnRandomObject(), 0, 12);
 			board.addGameObject(returnRandomObject(), 1, 12);
+			board.addGameObject(new Gat(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
 		}
@@ -311,9 +324,11 @@ public class GameFallDown extends Game {
 		else {
 
 			GameBoard board = getGameBoard();
+			
 			board.addGameObject(returnRandomObject(), 0, 12);
 			board.addGameObject(returnRandomObject(), 1, 12);
 			board.addGameObject(returnRandomObject(), 2, 12);
+			board.addGameObject(new Gat(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
 		}
 	}
@@ -331,14 +346,13 @@ public class GameFallDown extends Game {
 			return new Balk();
 		}
 	}
-
+ 
 	/**
 	 * increaseScore() increased de score met 1
 	 */
 	public void increaseScore(int aantal) {
 		score += aantal;
-		activity.updateScoreLabel(score);
-	}
+		}
 
 	/**
 	 * randomNumber() maakt een random nummber van 1 tot 5
@@ -349,6 +363,10 @@ public class GameFallDown extends Game {
 		int number = (int) (Math.random() * 5);
 		Log.d(TAG, (Integer.toString(number)));
 		return number;
+	}
+	
+	public static int getScore(){
+		return score;
 	}
 }
 // /
