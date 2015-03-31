@@ -20,6 +20,11 @@ public class StartMenu extends Activity {
 		//maakt startknop en startknop listener aan moet in de onCreate staan
 		startknop = (Button) findViewById(R.id.button1);
 		startknop.setOnClickListener(new startknopListener());
+		modes.add("Easy");
+		modes.add("Medium");
+		modes.add("Hard");
+		mode = (Spinner) findViewById(R.id.spinnerMode);
+		mode.setAdapter(new ModeSpinnerAdapter(this, R.layout.mode_item, modes));
 	}
 	
 	/**
