@@ -60,6 +60,28 @@ public class GameFallDown extends Game {
 	}
 
 	public void initNewGame() {
+		String mode = StartMenu.getSelectedMode();
+		double t1 = 3000;
+		double t2 = 1000;
+		double t3 = 1500;
+		double t4 = 500;
+		if (mode.equals("Easy")){
+			Log.d("DEBUG",mode);
+		}else if (mode.equals("Medium")){
+			Log.d("DEBUG",mode);
+			t1 = t1*0.75;
+			t2 = t2*0.75;
+			t3 = t3*0.75;
+			t4 = t4*0.75;
+		} else if (mode.equals("Hard")){
+			Log.d("DEBUG",mode);
+			t1 = t1*0.5;
+			t2 = t2*0.5;
+			t3 = t3*0.5;
+			t4 = t4*0.5;
+		}else {
+			Log.d("DEBUG","Mode gaat niet goed");
+		}
 		// Set the score and update the label
 		score = 0;
 		timerCount = 0;
@@ -113,18 +135,18 @@ public class GameFallDown extends Game {
 
 			timerCount++;
 			Log.d(TAG, timerCount + "# TimerTask Created");
-			t.scheduleAtFixedRate(tTask, 0, 3000);
+			t.scheduleAtFixedRate(tTask, 0, (int)t1;
 
-			t.scheduleAtFixedRate(tTask2, 0, 1000);
+			t.scheduleAtFixedRate(tTask2, 0, (int)t2;
 
 			running = true;
 		} else {
 			timerCount++;
 			Log.d(TAG, timerCount + "#TimerTask renewed");
 
-			t.scheduleAtFixedRate(tTask, 0, 1500);
+			t.scheduleAtFixedRate(tTask, 0, (int)t3;
 
-			t.scheduleAtFixedRate(tTask2, 0, 500);
+			t.scheduleAtFixedRate(tTask2, 0, (int)t4;
 		}
 
 	}
