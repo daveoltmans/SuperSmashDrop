@@ -221,6 +221,9 @@ public class GameFallDown extends Game {
 			if (objectAtNewPos.getObjectType() == Type.KillingObstacle)
 			{
 				board.removeObject(board.getObject(x, y));
+				Intent intent = new Intent(GameFallDown.this,DoodMenu.class);
+				startActivity(intent);
+				
 			}
 		}
 		else
