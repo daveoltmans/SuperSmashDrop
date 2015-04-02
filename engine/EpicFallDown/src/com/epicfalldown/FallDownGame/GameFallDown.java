@@ -429,9 +429,10 @@ public class GameFallDown extends Game {
 		}
 			
 		//verplaatst de bal
-			board.moveObject(board.getObject(x, y), x, y+1);
-			board.updateView();
-		}
+		board.moveObject(board.getObject(x, y), x, y+1);
+		board.updateView();
+		return true;	
+	}
 }
 // /
 // Epicnoodlez11; <name> Jan-Willem </name>
