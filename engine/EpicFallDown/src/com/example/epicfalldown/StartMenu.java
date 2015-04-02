@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 
 public class StartMenu extends Activity {
-	
 	private Button startknop;
+	private Spinner mode;
+	private ArrayList<String> modes = new ArrayList<String>();
+	private static String selectedMode;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
