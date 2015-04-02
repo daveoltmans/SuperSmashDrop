@@ -7,17 +7,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.R.bool;
+import android.content.Intent;
 import android.util.Log;
 
 import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
 import com.epicfalldown.objects.Spike;
 import com.epicfalldown.objects.Gat;
+import com.example.epicfalldown.DoodMenu;
 import com.example.epicfalldown.Game;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
 import com.example.epicfalldown.MainActivity;
 import com.example.epicfalldown.GameObject.Type;
+import com.example.epicfalldown.StartMenu;
 
 public class GameFallDown extends Game {
 	/** Tag used for log messages */
@@ -29,7 +32,7 @@ public class GameFallDown extends Game {
 	/** The number of leafs eaten. */
 	private static int score;
 	private int timerCount;
-
+	private Timer t;
 	boolean running = false;
 
 	/**
@@ -197,7 +200,7 @@ public class GameFallDown extends Game {
 			// Niek, hier komt jouw methode te staan. Vergeet niet dat je een Boolean (true) moet teruggeven als de bal
 			// een balk raakt. De 'null' achter return vervang je door jouw methode.
 			
-			return null;
+		//	return null;
 		}		
 
 		// If new position is over the edge of the board, do nothing
@@ -247,7 +250,7 @@ public class GameFallDown extends Game {
 	 */
 	public void endCurrentGame(Boolean wasKilled)
 	{
-		// INSERT MAGIC HERE
+		t.cancel();
 	}
 
 	/**

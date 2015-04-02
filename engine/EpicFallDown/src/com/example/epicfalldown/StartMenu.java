@@ -1,5 +1,9 @@
 package com.example.epicfalldown;
 
+import java.util.ArrayList;
+
+import com.epicfalldown.View.ModeSpinnerAdapter;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 public class StartMenu extends Activity {
+	
 	private Button startknop;
-	private Spinner mode;
+	
 	private ArrayList<String> modes = new ArrayList<String>();
+	
 	private static String selectedMode;
+	private Spinner mode;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +34,9 @@ public class StartMenu extends Activity {
 		modes.add("Easy");
 		modes.add("Medium");
 		modes.add("Hard");
+		
 		mode = (Spinner) findViewById(R.id.spinnerMode);
+
 		mode.setAdapter(new ModeSpinnerAdapter(this, R.layout.mode_item, modes));
 	}
 	
@@ -41,6 +52,7 @@ public class StartMenu extends Activity {
 		 */
 		@Override
 		public void onClick(View v) {
+			selectedMode = ""+mode.getSelectedItem().toString();
 			//start spel door het spel scherm te openen
 			
 			//vergeet niet op Alt + Enter(option + return op een Mac) te drukken voor de imports

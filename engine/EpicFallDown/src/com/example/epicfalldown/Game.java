@@ -1,5 +1,7 @@
 package com.example.epicfalldown;
 
+import android.app.Activity;
+
 
 /**
  * Superclass for all games. 
@@ -9,7 +11,7 @@ package com.example.epicfalldown;
  * 
  * @author Paul de Groot
  */
-public abstract class Game {
+public abstract class Game extends Activity{
 	private GameBoard gameBoard;
 
 	/**
