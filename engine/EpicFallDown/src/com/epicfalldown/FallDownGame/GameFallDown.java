@@ -6,18 +6,20 @@ package com.epicfalldown.FallDownGame;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.R.bool;
+import android.content.Intent;
 import android.util.Log;
 
-import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
-import com.epicfalldown.objects.Spike;
+import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Gat;
+import com.epicfalldown.objects.Spike;
+import com.example.epicfalldown.DoodMenu;
 import com.example.epicfalldown.Game;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
-import com.example.epicfalldown.MainActivity;
 import com.example.epicfalldown.GameObject.Type;
+import com.example.epicfalldown.MainActivity;
+import com.example.epicfalldown.StartMenu;
 
 public class GameFallDown extends Game {
 	/** Tag used for log messages */
@@ -168,10 +170,11 @@ public class GameFallDown extends Game {
 	/**
 	 * Moves the SuperSmashDrop ball in the direction provided. 
 	 * This method has built-in checks to prevent the ball from moving into an already occupied space.
-	 * 
+	 * Authors Jelle Dave Altered By Niek For downwardmove option
 	 * @param swipeDirection 	The direction in which the ball should move (e.g. SwipeGestureFilter.SWIPE_LEFT)
+	 * @return 
 	 */
-	public void swipeBall(int swipeDirection)
+	public boolean swipeBall(int swipeDirection)
 	{
 		GameBoard board = getGameBoard();
 		int x = 0, xNew = 0, y = 0;
@@ -197,7 +200,7 @@ public class GameFallDown extends Game {
 			// Niek, hier komt jouw methode te staan. Vergeet niet dat je een Boolean (true) moet teruggeven als de bal
 			// een balk raakt. De 'null' achter return vervang je door jouw methode.
 			
-			return null;
+			return pogingBalValt(x, y);
 		}		
 
 		// If new position is over the edge of the board, do nothing
@@ -214,7 +217,7 @@ public class GameFallDown extends Game {
 			if (objectAtNewPos.getObjectType() == Type.Obstacle)
 			{
 				board.updateView();
-				return;
+				return true;
 			}
 
 			// Lucky! The ball just hit a Power-Up!
@@ -400,6 +403,35 @@ public class GameFallDown extends Game {
 	public static int getScore(){
 		return score;
 	}
+	
+	//method author Niek Bats
+	public boolean pogingBalValt(int x, int y) {
+			
+		GameBoard board = getGameBoard();
+		//check of je niet te laag komt
+		if (y > 9) {
+			return true;
+		}
+		
+		//check of er geen Balk is die je tegenhoudt
+		if (board.getObject(x, y+1) instanceof Balk) {
+			return true;
+		}
+		
+		//check of je niet jezelf in een Spike gooit zo ja dan sterf je muhaha :(
+		if (board.getObject(x, y+1) instanceof Spike) {
+			//roep doodMethode aan
+		}
+		
+		//check of er een powerup onder de bal zit en pakt de powerup dan
+		if (board.getObject(x, y+1) instanceof Powerup) {
+			//pakt de powerup methode uhm moet wachten tot Powerup class af is
+		}
+			
+		//verplaatst de bal
+			board.moveObject(board.getObject(x, y), x, y+1);
+			board.updateView();
+		}
 }
 // /
 // Epicnoodlez11; <name> Jan-Willem </name>
