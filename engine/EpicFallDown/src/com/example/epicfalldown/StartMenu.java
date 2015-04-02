@@ -70,4 +70,8 @@ public class StartMenu extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public static String getSelectedMode(){
+		return selectedMode;
+	}
 }
