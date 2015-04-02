@@ -189,10 +189,17 @@ public class GameFallDown extends Game {
 			}
 		}
 		
-		// Checks if the user swiped left or right
+				// Checks if the user swiped left, right, or down
 		if (swipeDirection == SwipeGestureFilter.SWIPE_LEFT) xNew = x - 1;
-		else xNew = x + 1;
-		
+		else if (swipeDirection == SwipeGestureFilter.SWIPE_RIGHT) xNew = x + 1;
+		else 
+		{
+			// Niek, hier komt jouw methode te staan. Vergeet niet dat je een Boolean (true) moet teruggeven als de bal
+			// een balk raakt. De 'null' achter return vervang je door jouw methode.
+			
+			return null;
+		}		
+
 		// If new position is over the edge of the board, do nothing
 		if (xNew >= board.getWidth()) xNew = 0;
 		if (xNew < 0) xNew = board.getWidth() - 1;
