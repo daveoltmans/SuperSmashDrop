@@ -111,7 +111,8 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 				game.swipeBall(SwipeGestureFilter.SWIPE_RIGHT);
 				return true;
 			case KeyEvent.KEYCODE_DPAD_DOWN:
-				return game.swipeBall(SwipeGestureFilter.SWIPE_DOWN);
+				game.swipeBall(SwipeGestureFilter.SWIPE_DOWN);
+				return true;
 			// Not left/right/down arrow, so let's send it back to the original method
 			default:
 				return super.onKeyUp(keyCode, event);
