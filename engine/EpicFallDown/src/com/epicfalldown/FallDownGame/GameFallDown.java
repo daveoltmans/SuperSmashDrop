@@ -135,18 +135,18 @@ public class GameFallDown extends Game {
 
 			timerCount++;
 			Log.d(TAG, timerCount + "# TimerTask Created");
-			t.scheduleAtFixedRate(tTask, 0, (int)t1;
+			t.scheduleAtFixedRate(tTask, 0, (int)t1);
 
-			t.scheduleAtFixedRate(tTask2, 0, (int)t2;
+			t.scheduleAtFixedRate(tTask2, 0, (int)t2);
 
 			running = true;
 		} else {
 			timerCount++;
 			Log.d(TAG, timerCount + "#TimerTask renewed");
 
-			t.scheduleAtFixedRate(tTask, 0, (int)t3;
+			t.scheduleAtFixedRate(tTask, 0, (int)t3);
 
-			t.scheduleAtFixedRate(tTask2, 0, (int)t4;
+			t.scheduleAtFixedRate(tTask2, 0, (int)t4);
 		}
 
 	}
