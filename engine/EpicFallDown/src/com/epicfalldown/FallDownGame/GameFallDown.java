@@ -421,6 +421,7 @@ public class GameFallDown extends Game {
 		//check of je niet jezelf in een Spike gooit zo ja dan sterf je muhaha :(
 		if (board.getObject(x, y+1) instanceof Spike) {
 			//roep doodMethode aan
+			endCurrentGame(true);
 		}
 		
 		//check of er een powerup onder de bal zit en pakt de powerup dan
