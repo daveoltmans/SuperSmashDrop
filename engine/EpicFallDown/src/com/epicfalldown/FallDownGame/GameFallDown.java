@@ -425,9 +425,9 @@ public class GameFallDown extends Game {
 		}
 		
 		//check of er een powerup onder de bal zit en pakt de powerup dan
-		if (board.getObject(x, y+1) instanceof Powerup) {
+		//if (board.getObject(x, y+1) instanceof Powerup) {
 			//pakt de powerup methode uhm moet wachten tot Powerup class af is
-		}
+		//}
 			
 		//verplaatst de bal
 		board.moveObject(board.getObject(x, y), x, y+1);
