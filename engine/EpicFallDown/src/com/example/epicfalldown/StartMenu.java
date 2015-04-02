@@ -41,6 +41,7 @@ public class StartMenu extends Activity {
 		 */
 		@Override
 		public void onClick(View v) {
+			selectedMode = ""+mode.getSelectedItem().toString();
 			//start spel door het spel scherm te openen
 			
 			//vergeet niet op Alt + Enter(option + return op een Mac) te drukken voor de imports
