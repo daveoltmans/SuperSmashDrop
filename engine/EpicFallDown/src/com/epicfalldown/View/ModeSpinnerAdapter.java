@@ -36,7 +36,8 @@ public class ModeSpinnerAdapter extends ArrayAdapter<String> {
 		LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
 		View mySpinner = inflater.inflate(R.layout.mode_item, parent, false); 
 		TextView mode = (TextView) mySpinner.findViewById(R.id.modeTextView); 
-		mode.setText(""+modes.get(position)); 
+		mode.setText("Difficulty: "+modes.get(position)); 
+		mode.setTextSize(20);
 		
 		return mySpinner;
 	}

@@ -186,7 +186,7 @@ public class GameFallDown extends Game {
 	 */
 	public void swipeBall(int swipeDirection) {
 		GameBoard board = getGameBoard();
-		int x = 0, xNew = 0, y = 0;
+		int x = 0, xNew = 0, y = 0, yNew = 0;
 
 		// Nested loop for determining the current position of the ball on the
 		// board
@@ -205,12 +205,40 @@ public class GameFallDown extends Game {
 		else if (swipeDirection == SwipeGestureFilter.SWIPE_RIGHT)
 			xNew = x + 1;
 		else {
-			// Niek, hier komt jouw methode te staan. Vergeet niet dat je een
-			// Boolean (true) moet teruggeven als de bal
-			// een balk raakt. De 'null' achter return vervang je door jouw
-			// methode.
 
-			// return null;
+			int xOld = x;
+			int yOld = y;
+
+			yNew = y + 1;
+			
+			if (yNew > 10) {
+				yNew = 10;
+			}
+			
+			if (board.getObject(xOld, yNew) instanceof Balk) {
+				return;
+			}
+
+			if (board.getObject(xOld, yNew) instanceof Gat) {
+				board.removeObject(board.getObject(xOld, (yOld+1)));
+				increaseScore(1);
+				board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
+				board.updateView();
+				return;
+			}
+
+			if (board.getObject(xOld, yNew) instanceof Spike) {
+				board.removeObject(board.getObject(xOld, (yOld+1)));
+				board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
+				board.updateView();
+				endCurrentGame(true);
+				return;
+			}
+			// Move the ball and give the signal to redraw the board
+			board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
+			board.updateView();
+			return;
+
 		}
 
 		// If new position is over the edge of the board, do nothing
@@ -311,12 +339,6 @@ public class GameFallDown extends Game {
 					board.removeObject(board.getObject(x, y + 1));
 					increaseScore(1);
 					Log.d(TAG, "BAL IN DOEL");
-				} else if ((board.getObject(x, y) instanceof Ball)
-						&& ((k - 1) == 0)) {
-					board.removeObject(board.getObject(x, y));
-
-					endCurrentGame(true);
-					Log.d(TAG, "BAL RAAKT TOP");
 				} else if ((board.getObject(x, y) instanceof Balk)
 						|| (board.getObject(x, y) instanceof Spike)
 						|| (board.getObject(x, y) instanceof Gat)) {
