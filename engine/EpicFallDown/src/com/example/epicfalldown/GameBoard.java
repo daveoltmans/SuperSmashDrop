@@ -2,6 +2,7 @@ package com.example.epicfalldown;
 
 import java.util.Observable;
 
+import com.epicfalldown.FallDownGame.GameFallDown;
 import com.epicfalldown.objects.Ball;
 
 import android.util.Log;
@@ -101,8 +102,8 @@ public abstract class GameBoard extends Observable {
 		
 		if (newY == 0) {
 			removeObject(obj);
-			if (obj instanceof Ball){
-				
+			if ( obj instanceof Ball){
+				GameFallDown.endCurrentGame(true);
 			}
 			
 		} else if (newY != 0) {

@@ -24,10 +24,10 @@
      	    android:text="@string/score" />
 
      	<Button
-     	    android:id="@+id/newGameButton"
+     	    android:id="@+id/menuButton"
      	    android:layout_width="wrap_content"
      	    android:layout_height="wrap_content"
-     	    android:text="@string/newgame" />
+     	    android:text="@string/menu" />
 
  	</LinearLayout>  
 </LinearLayout>  

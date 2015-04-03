@@ -1676,10 +1676,10 @@ containing a value of this type.
         public static final int imageView1=0x7f090045;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090025;
+        public static final int menuButton=0x7f090042;
         public static final int middle=0x7f09001d;
         public static final int modeTextView=0x7f090043;
         public static final int never=0x7f090017;
-        public static final int newGameButton=0x7f090042;
         public static final int none=0x7f09000f;
         public static final int normal=0x7f09000b;
         public static final int progress_circular=0x7f090007;
@@ -1829,7 +1829,9 @@ containing a value of this type.
         public static final int action_settings=0x7f0a0012;
         public static final int app_name=0x7f0a0010;
         public static final int hello_world=0x7f0a0011;
+        public static final int menu=0x7f0a0016;
         public static final int newgame=0x7f0a0014;
+        public static final int restart=0x7f0a0015;
         public static final int score=0x7f0a0013;
     }
     public static final class style {
