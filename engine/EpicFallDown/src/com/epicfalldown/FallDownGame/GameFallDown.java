@@ -38,7 +38,6 @@ public class GameFallDown extends Game {
 	private static TimerTask tTask;
 	private static TimerTask tTask2;
 	private static Intent intent;
-
 	/**
 	 * Constructor.
 	 * 
@@ -74,7 +73,6 @@ public class GameFallDown extends Game {
 		double t2 = 1000;
 		double t3 = 1500;
 		double t4 = 500;
-
 		// setting given GameMode
 		if (mode.equals("Easy")) {
 			Log.d("DEBUG", mode);
@@ -84,12 +82,15 @@ public class GameFallDown extends Game {
 			t2 = t2 * 0.75;
 			t3 = t3 * 0.75;
 			t4 = t4 * 0.75;
+
+			
 		} else if (mode.equals("Hard")) {
 			Log.d("DEBUG", mode);
 			t1 = t1 * 0.5;
 			t2 = t2 * 0.5;
 			t3 = t3 * 0.5;
 			t4 = t4 * 0.5;
+
 		} else {
 			Log.d("DEBUG", "Mode gaat niet goed");
 		}
@@ -220,7 +221,7 @@ public class GameFallDown extends Game {
 			}
 
 			if (board.getObject(xOld, yNew) instanceof Gat) {
-				board.removeObject(board.getObject(xOld, (yOld+1)));
+				board.removeObject(board.getObject(xOld, (yNew)));
 				increaseScore(1);
 				board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
 				board.updateView();
@@ -228,7 +229,7 @@ public class GameFallDown extends Game {
 			}
 
 			if (board.getObject(xOld, yNew) instanceof Spike) {
-				board.removeObject(board.getObject(xOld, (yOld+1)));
+				board.removeObject(board.getObject(xOld, (yNew)));
 				board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
 				board.updateView();
 				endCurrentGame(true);
@@ -422,10 +423,10 @@ public class GameFallDown extends Game {
 	/**
 	 * Has a one-in-twenty chance to return a spike object instead of a bar
 	 * 
-	 * @return
+	 * @return 
 	 */
 	public GameObject returnRandomObject() {
-		int number = (int) (Math.random() * 20);
+		int number = (int) (Math.random() * 15);
 		if (number == 10) {
 			return new Spike();
 		} else {
@@ -454,6 +455,7 @@ public class GameFallDown extends Game {
 	public static int getScore() {
 		return score;
 	}
+
 }
 // /
 // Epicnoodlez11; <name> Jan-Willem </name>

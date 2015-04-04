@@ -8,5 +8,6 @@
     <string name="newgame">newgame</string>
     <string name="restart">restart</string>
     <string name="menu">menu</string>
+    <string name="doodmenumenubutton">menu</string>
 
 </resources>

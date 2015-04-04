@@ -11,18 +11,29 @@ import android.widget.Button;
 public class DoodMenu extends Activity {
 	private Button restart;
 	private Intent intent;
+	private Button menu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.doodmenu);
 		
+		menu = (Button) findViewById(R.id.doodmenumenubutton);
 		restart = (Button) findViewById(R.id.restartButton);
 		restart.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				intent = new Intent(DoodMenu.this, MainActivity.class);
+				startActivity(intent);				
+			}
+		});
+		
+		menu.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				intent = new Intent(DoodMenu.this,StartMenu.class);
 				startActivity(intent);				
 			}
 		});

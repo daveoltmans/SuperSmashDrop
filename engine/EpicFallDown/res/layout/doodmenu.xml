@@ -10,4 +10,10 @@
         android:layout_height="wrap_content"
         android:text="@string/restart" />
 
+    <Button
+        android:id="@+id/doodmenumenubutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/doodmenumenubutton" />
+
 </LinearLayout>
