@@ -1,8 +1,5 @@
 package com.epicfalldown.FallDownGame;
 
-//import java.util.Timer;
-//import java.util.TimerTask;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -185,92 +182,72 @@ public class GameFallDown extends Game {
 	 *            The direction in which the ball should move (e.g.
 	 *            SwipeGestureFilter.SWIPE_LEFT)
 	 */
-	public void swipeBall(int swipeDirection) {
+	public void swipeBall(int swipeDirection)
+	{
 		GameBoard board = getGameBoard();
-		int x = 0, xNew = 0, y = 0, yNew = 0;
-
-		// Nested loop for determining the current position of the ball on the
-		// board
-		for (int w = 0; w < board.getWidth(); w++) {
-			for (int h = 0; h < board.getHeight(); h++) {
-				if (board.getObject(w, h) instanceof Ball) {
+		int x = 0, xNew = 0, y = 0;
+		
+		// Nested loop for determining the current position of the ball on the board
+		for (int w = 0; w < board.getWidth(); w++)
+		{
+			for (int h = 0; h < board.getHeight(); h++)
+			{
+				if (board.getObject(w, h) instanceof Ball)
+				{
 					x = w;
 					y = h;
 				}
 			}
 		}
-
-		// Checks if the user swiped left, right, or down
-		if (swipeDirection == SwipeGestureFilter.SWIPE_LEFT)
-			xNew = x - 1;
-		else if (swipeDirection == SwipeGestureFilter.SWIPE_RIGHT)
-			xNew = x + 1;
-		else {
-
-			int xOld = x;
-			int yOld = y;
-
-			yNew = y + 1;
+		
+				// Checks if the user swiped left, right, or down
+		if (swipeDirection == SwipeGestureFilter.SWIPE_LEFT) xNew = x - 1;
+		else if (swipeDirection == SwipeGestureFilter.SWIPE_RIGHT) xNew = x + 1;
+		else 
+		{
+			// Niek, hier komt jouw methode te staan. Vergeet niet dat je een Boolean (true) moet teruggeven als de bal
+			// een balk raakt. De 'null' achter return vervang je door jouw methode.
 			
-			if (yNew > 10) {
-				yNew = 10;
-			}
+		//	return null;
 			
-			if (board.getObject(xOld, yNew) instanceof Balk) {
-				return;
-			}
-
-			if (board.getObject(xOld, yNew) instanceof Gat) {
-				board.removeObject(board.getObject(xOld, (yNew)));
-				increaseScore(1);
-				board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
-				board.updateView();
-				return;
-			}
-
-			if (board.getObject(xOld, yNew) instanceof Spike) {
-				board.removeObject(board.getObject(xOld, (yNew)));
-				board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
-				board.updateView();
-				endCurrentGame(true);
-				return;
-			}
-			// Move the ball and give the signal to redraw the board
-			board.moveObject(board.getObject(xOld, yOld), xOld, yNew);
-			board.updateView();
+			pogingBalValt(x, y);
 			return;
-
-		}
+		}		
 
 		// If new position is over the edge of the board, do nothing
-		if (xNew >= board.getWidth())
-			xNew = 0;
-		if (xNew < 0)
-			xNew = board.getWidth() - 1;
-
+		if (xNew >= board.getWidth()) xNew = 0;
+		if (xNew < 0) xNew = board.getWidth() - 1;
+		
 		// Takes a cheeky peek at the new position on the board
 		GameObject objectAtNewPos = board.getObject(xNew, y);
-
+		
 		// Checks whether the next position of the ball is empty or not
-		if (objectAtNewPos != null) {
+		if (objectAtNewPos != null)
+		{
 			// The ball can't move through bars :(
-			if (objectAtNewPos.getObjectType() == Type.Obstacle) {
+			if (objectAtNewPos.getObjectType() == Type.Obstacle)
+			{
 				board.updateView();
 				return;
 			}
 
 			// Lucky! The ball just hit a Power-Up!
-			if (objectAtNewPos.getObjectType() == Type.PowerUp) {
+			if (objectAtNewPos.getObjectType() == Type.PowerUp)
+			{
 				board.removeObject(objectAtNewPos);
 				((GameFallDown) board.getGame()).increaseScore(1);
 			}
-
+			
 			// Not so lucky, the ball just hit an obstacle which insta-kills!
-			if (objectAtNewPos.getObjectType() == Type.KillingObstacle) {
+			if (objectAtNewPos.getObjectType() == Type.KillingObstacle)
+			{
 				board.removeObject(board.getObject(x, y));
 				endCurrentGame(true);
+				
 			}
-		} else {
+		}
+		else
+		{
 			// Move the ball and give the signal to redraw the board
 			board.moveObject(board.getObject(x, y), xNew, y);
 			board.updateView();
@@ -455,9 +432,44 @@ public class GameFallDown extends Game {
 	public static int getScore() {
 		return score;
 	}
+	
+
+	public void pogingBalValt(int x, int y) {
+			
+		GameBoard board = getGameBoard();
+		//check of je niet te laag komt
+		if (y > 9) {
+			return;
+		}
+		
+		//check of er geen Balk is die je tegenhoudt
+		if (board.getObject(x, y+1) instanceof Balk) {
+			return;
+		}
+		
+		//check of je niet jezelf in een Spike gooit zo ja dan sterf je muhaha :(
+		if (board.getObject(x, y+1) instanceof Spike) {
+			board.removeObject(board.getObject(x, y));
+			board.updateView();
+			endCurrentGame(true);
+			return;
+		}
+		
+		if (board.getObject(x, y+1) instanceof Gat) {
+			board.removeObject(board.getObject(x, y+1));
+			increaseScore(1);
+		}
+		
+		//check of er een powerup onder de bal zit en pakt de powerup dan
+		//if (board.getObject(x, y+1) instanceof Powerup) {
+			//pakt de powerup methode uhm moet wachten tot Powerup class af is
+		//}
+			
+		//verplaatst de bal
+		board.moveObject(board.getObject(x, y), x, y+1);
+		board.updateView();
+		return;
+	}
 
 }
-// /
-// Epicnoodlez11; <name> Jan-Willem </name>
-//
 
