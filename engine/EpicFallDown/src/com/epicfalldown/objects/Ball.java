@@ -20,8 +20,9 @@ public class Ball extends GameObject {
 	private boolean up;
 	private boolean down;
 	private boolean isHit;
+	private static String imageString = "";
 	
-	public static final String WOMBAT_IMAGE = "Wombat";
+	public static final String BALL_IMAGE = "Ball";
 
 	/**
 	 * Public bal() constructor Ball class
@@ -78,7 +79,7 @@ public class Ball extends GameObject {
 
 	@Override
 	public String getImageId() {
-		return WOMBAT_IMAGE;
+		return BALL_IMAGE;
 	}
 
 	@Override
@@ -91,5 +92,6 @@ public class Ball extends GameObject {
 	public Type getObjectType() {
 		return Type.Ball;
 	}
+	
 
 }

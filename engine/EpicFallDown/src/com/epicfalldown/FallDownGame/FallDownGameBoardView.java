@@ -49,9 +49,9 @@ public class FallDownGameBoardView extends GameBoardView {
 		// Load the 'empty' cell bitmap and tell the tile view that this is the
 		// image to use for cells without GameObject
 		//spriteCache.loadTile("empty", R.drawable.cell);
-		spriteCache.loadTile(Ball.WOMBAT_IMAGE, R.drawable.wombat);
-		spriteCache.loadTile(Balk.ROCK_IMAGE, R.drawable.rock);
-		spriteCache.loadTile(Spike.SPIKE_IMAGE, R.drawable.leaf);
+		spriteCache.loadTile(Ball.BALL_IMAGE, R.drawable.ball0);
+		spriteCache.loadTile(Balk.BALK_IMAGE, R.drawable.balk);
+		spriteCache.loadTile(Spike.SPIKE_IMAGE, R.drawable.spike);
 		setEmptyTile("empty");
 		
 		// Load the images for the GameObjects

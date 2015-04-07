@@ -5,7 +5,7 @@ import com.example.epicfalldown.GameObject;
 
 public class Balk extends GameObject{
 	
-	public static final String ROCK_IMAGE = "Rock";
+	public static final String BALK_IMAGE = "balk";
 	
 	public Balk() {
 		super();
@@ -13,7 +13,7 @@ public class Balk extends GameObject{
 
 	@Override
 	public String getImageId() {
-		return ROCK_IMAGE;
+		return BALK_IMAGE;
 	}
 
 	@Override
