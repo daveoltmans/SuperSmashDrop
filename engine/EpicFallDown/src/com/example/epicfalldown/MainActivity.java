@@ -76,13 +76,13 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 	 */
 	private void registerNewGameButton() {
 		// Find the 'New Game'-button in the activity
-		final Button button1 = (Button) findViewById(R.id.newGameButton);
+		final Button button1 = (Button) findViewById(R.id.menuButton);
 		
 		// Add a click listener to the button that calls initNewGame()
 		button1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				game.initNewGame();
+				GameFallDown.endCurrentGame(false);
 			}
 		});
 	}

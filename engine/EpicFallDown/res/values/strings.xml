@@ -6,5 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="score">score</string>
     <string name="newgame">newgame</string>
+    <string name="restart">restart</string>
+    <string name="menu">menu</string>
+    <string name="doodmenumenubutton">menu</string>
 
 </resources>

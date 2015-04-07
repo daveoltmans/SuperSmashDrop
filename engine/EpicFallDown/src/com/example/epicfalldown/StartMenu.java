@@ -6,6 +6,7 @@ import com.epicfalldown.View.ModeSpinnerAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,8 +36,10 @@ public class StartMenu extends Activity {
 		modes.add("Medium");
 		modes.add("Hard");
 		
+		Color color = new Color();
+		
 		mode = (Spinner) findViewById(R.id.spinnerMode);
-
+		mode.setBackgroundColor(color.WHITE);
 		mode.setAdapter(new ModeSpinnerAdapter(this, R.layout.mode_item, modes));
 	}
 	
