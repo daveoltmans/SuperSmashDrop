@@ -3,7 +3,7 @@ package com.epicfalldown.objects;
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
 
-public class Gat extends GameObject {
+public class Gat extends PowerUp {
 
 	@Override
 	public Type getObjectType() {
@@ -21,6 +21,12 @@ public class Gat extends GameObject {
 	public void onTouched(GameBoard gameBoard) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public PowerType getPowerType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

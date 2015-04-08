@@ -4,6 +4,7 @@ import com.epicfalldown.View.GameBoardView;
 import com.epicfalldown.View.SpriteCache;
 import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
+import com.epicfalldown.objects.Clear;
 import com.epicfalldown.objects.Leaf;
 import com.epicfalldown.objects.Spike;
 import com.example.epicfalldown.R;
@@ -52,6 +53,7 @@ public class FallDownGameBoardView extends GameBoardView {
 		spriteCache.loadTile(Ball.BALL_IMAGE, R.drawable.ball0);
 		spriteCache.loadTile(Balk.BALK_IMAGE, R.drawable.balk);
 		spriteCache.loadTile(Spike.SPIKE_IMAGE, R.drawable.spike);
+		spriteCache.loadTile(Clear.CLEAR_IMAGE, R.drawable.fireball);
 		setEmptyTile("empty");
 		
 		// Load the images for the GameObjects

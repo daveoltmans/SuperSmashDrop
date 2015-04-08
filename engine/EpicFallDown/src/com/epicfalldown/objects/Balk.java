@@ -30,4 +30,10 @@ public class Balk extends GameObject{
 		return Type.Obstacle;
 	}
 
+	@Override
+	public PowerType getPowerType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

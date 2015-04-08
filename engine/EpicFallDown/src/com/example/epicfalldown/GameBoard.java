@@ -98,8 +98,6 @@ public abstract class GameBoard extends Observable {
 					"Destination already contains an object");
 		}
 		
-		
-		
 		if (newY == 0) {
 			removeObject(obj);
 			if ( obj instanceof Ball){

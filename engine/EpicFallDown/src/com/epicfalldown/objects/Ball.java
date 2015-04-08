@@ -92,6 +92,12 @@ public class Ball extends GameObject {
 	public Type getObjectType() {
 		return Type.Ball;
 	}
+
+	@Override
+	public PowerType getPowerType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

@@ -28,5 +28,11 @@ public class Spike extends GameObject {
 		return Type.KillingObstacle;
 	}
 
+	@Override
+	public PowerType getPowerType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 

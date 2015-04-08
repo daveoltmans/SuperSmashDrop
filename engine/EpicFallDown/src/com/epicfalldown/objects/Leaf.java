@@ -58,4 +58,10 @@ public class Leaf extends GameObject {
 	public Type getObjectType() {
 		return Type.PowerUp;
 	}
+
+	@Override
+	public PowerType getPowerType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
