@@ -93,8 +93,14 @@ public class StartMenu extends Activity {
 		public void onClick(View v) {
 			Builder builder = new AlertDialog.Builder(StartMenu.this);
 			AlertDialog dialog = builder.create();
-			dialog.setTitle("Uitleg");
-			dialog.setMessage("de uitleg");
+			dialog.setTitle("Spel Uitleg");
+			dialog.setMessage("Het doel van het spel is om zo ver mogelijjk naar beneden te gaan. "
+					+ "Dat doe je door tussen de Balken door te gaan en geen Spikes te raken. "
+					+ "In je val kom je allerlei Powerups tegen. "
+					+ "Je gaat opzij door naar links en rechts te swipen. "
+					+ "Wanneer je over de zijkant van het scherm gaat kom je aan de andere kant terecht. "
+					+ "Door naar beneden te swipen kun je naar beneden gaan."
+					+ " Succes");
 			dialog.setCancelable(true);
 			dialog.show();
 		}
