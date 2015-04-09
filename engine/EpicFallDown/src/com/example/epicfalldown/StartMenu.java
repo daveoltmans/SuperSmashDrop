@@ -36,12 +36,15 @@ public class StartMenu extends Activity {
 		// maakt startknop en startknop listener aan moet in de onCreate staan
 		startknop = (Button) findViewById(R.id.button1);
 		startknop.setOnClickListener(new startknopListener());
+		
+		// add 3 modes aan het lijstje modes
 		modes.add("Easy");
 		modes.add("Medium");
 		modes.add("Hard");
 
 		Color color = new Color();
-
+		
+		//maakt een Spinner aan en zet de adapter
 		mode = (Spinner) findViewById(R.id.spinnerMode);
 		mode.setBackgroundColor(color.WHITE);
 		mode.setAdapter(new ModeSpinnerAdapter(this, R.layout.mode_item, modes));
