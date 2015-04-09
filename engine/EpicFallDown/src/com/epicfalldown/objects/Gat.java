@@ -5,6 +5,10 @@ import com.example.epicfalldown.GameObject;
 
 public class Gat extends PowerUp {
 
+
+	/**
+	 * Gets the ObjectType for the Gat object
+	 */
 	@Override
 	public Type getObjectType() {
 		// TODO Auto-generated method stub
@@ -23,6 +27,9 @@ public class Gat extends PowerUp {
 
 	}
 
+	/**
+	 * Gets the powerType for the Gat object
+	 */
 	@Override
 	public PowerType getPowerType() {
 		// TODO Auto-generated method stub

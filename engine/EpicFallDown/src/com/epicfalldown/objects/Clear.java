@@ -11,6 +11,9 @@ public class Clear extends PowerUp{
 		return CLEAR_IMAGE;
 	}
 
+	/**
+	 * Gets the powerType for the Clear object
+	 */
 	@Override
 	public PowerType getPowerType() {
 		// TODO Auto-generated method stub

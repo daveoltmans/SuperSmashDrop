@@ -5,12 +5,19 @@ import com.example.epicfalldown.GameObject;
 
 public class PowerUp extends GameObject{
 
+
+	/**
+	 * Gets the ObjectType for the PowerUp object
+	 */
 	@Override
 	public Type getObjectType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Gets the imageId for the PowerUp object
+	 */
 	public String getImageId() {
 		return null;
 	}
@@ -21,6 +28,9 @@ public class PowerUp extends GameObject{
 		
 	}
 
+	/**
+	 * Gets the powerType for the PowerUp object
+	 */
 	@Override
 	public PowerType getPowerType() {
 		// TODO Auto-generated method stub

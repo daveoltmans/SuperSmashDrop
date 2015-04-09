@@ -338,11 +338,11 @@ public abstract class GameBoardView extends View implements Observer {
 	}
 	
 	public int backgroundColor(){
-		if(GameFallDown.getScore() < 256){
-			return Color.rgb(255,255,255 - GameFallDown.getScore());
+		if((GameFallDown.getScore()* 4) < 256){
+			return Color.rgb(255,255,255 - (GameFallDown.getScore()*4));
 		}
-		else if ( GameFallDown.getScore() < 512){
-			return Color.rgb(255, 511 - GameFallDown.getScore(),0);
+		else if ( (GameFallDown.getScore()* 4) < 512){
+			return Color.rgb(255, 511 - (GameFallDown.getScore()*4),0);
 		}
 		else return Color.rgb(255, 0, 0);
 	}

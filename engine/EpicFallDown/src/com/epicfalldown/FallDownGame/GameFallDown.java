@@ -268,6 +268,8 @@ public class GameFallDown extends Game {
 			if (objectAtNewPos.getPowerType() == PowerType.TotalAnihilation) {
 				board.removeAllObjects();
 				board.addGameObject(new Ball(), xNew, y);
+				increaseScore(2);
+				board.updateView();
 				return;
 			}
 		} else {
@@ -346,6 +348,7 @@ public class GameFallDown extends Game {
 						&& ((board.getObject(x, (y + 1)) instanceof Clear))) {
 					board.removeAllObjects();
 					board.addGameObject(new Ball(), x, y);
+					increaseScore(2);
 					Log.d(TAG, "CLEAR");
 
 				} else if ((board.getObject(x, y) instanceof Balk)
@@ -469,7 +472,7 @@ public class GameFallDown extends Game {
 	 * @return
 	 */
 	public GameObject returnRandomObject() {
-		int number = (int) (Math.random() * 10);
+		int number = (int) (Math.random() * 9);
 		if (number == 5) {
 			return new Spike();
 		} else {
@@ -478,7 +481,7 @@ public class GameFallDown extends Game {
 	}
 
 	/**
-	 * increaseScore() increased de score met 1
+	 * increaseScore() increased de score met het gegeven aantal
 	 */
 	public void increaseScore(int aantal) {
 		score += aantal;
@@ -494,11 +497,23 @@ public class GameFallDown extends Game {
 		Log.d(TAG, (Integer.toString(number)));
 		return number;
 	}
-
+	/**
+	 * Een methode om de int score terug te geven
+	 * @return int score
+	 */
 	public static int getScore() {
 		return score;
 	}
 
+	/**
+	 * Checkt welk object onder het Ball-object zit. Deze methode returned als het object
+	 * een spike it. Voert endCurrentGame(true) uit als het object een spike is. Voert 
+	 * IncreaseScore als het object een gat is. En Removed alle objecten en voegt de
+	 * Player, het Ball-bject, toe aan de array
+	 * 
+	 * @param x 			De x positie van de Bal
+	 * @param y				De y positie van de Bal
+	 */
 	public void pogingBalValt(int x, int y) {
 
 		GameBoard board = getGameBoard();
@@ -532,6 +547,7 @@ public class GameFallDown extends Game {
 			board.removeAllObjects();
 			board.addGameObject(new Ball(), x, y + 1);
 			board.moveObject(board.getObject(x, y), x, y + 1);
+			increaseScore(2);
 			return;
 		}
 
@@ -546,6 +562,12 @@ public class GameFallDown extends Game {
 		return;
 	}
 
+	/**
+	 * checks if the the PowerUp can move. If the powerUp hits the left wall
+	 * it will be placed on the right side of the screen. if the powerUp hits
+	 * the player while updating delete all items on the board if the powerUp
+	 * is a Clear-Powerup.	
+	 */
 	public void updatePowerUp() {
 
 		GameBoard board = getGameBoard();
@@ -570,11 +592,23 @@ public class GameFallDown extends Game {
 					board.removeObject(board.getObject(c, d));
 					board.removeAllObjects();
 					board.addGameObject(new Ball(), xOld, d);
+					increaseScore(2);
+					board.updateView();
+				}
+				
+				if ((board.getObject(0, d) instanceof Clear) 
+						&& (board.getObject(4, d-1)instanceof Ball)){
+
+					board.removeObject(board.getObject(0, d));
+					board.removeAllObjects();
+					board.addGameObject(new Ball(), 4, d);
+					increaseScore(2);
 					board.updateView();
 				}
 				if (board.getObject(c, d) instanceof Clear) {
 					board.moveObject(board.getObject(c, d), (xOld), d);
 					board.updateView();
+					return;
 				}
 			}
 			board.updateView();
