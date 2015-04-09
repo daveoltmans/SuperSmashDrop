@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import com.example.epicfalldown.GameBoard;
 import com.example.epicfalldown.GameObject;
+import com.example.epicfalldown.R;
 import com.epicfalldown.FallDownGame.*;
 
 import android.content.Context;
@@ -12,6 +13,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -77,6 +80,8 @@ public abstract class GameBoardView extends View implements Observer {
 	
 	/** Offset of view into gameboard. */
 	private int modelOffsetY = 0;
+	
+	private Drawable background;
 
 	/**
 	 * Constructor.
@@ -327,6 +332,7 @@ public abstract class GameBoardView extends View implements Observer {
 						int drawAtX = borderSizeX + x * mTileSize;
 						int drawAtY = borderSizeY + y * mTileSize;
 						canvas.drawBitmap(mTileGrid[x][y][layer], drawAtX, drawAtY, mPaint);
+						
 					}
 				}
 			}

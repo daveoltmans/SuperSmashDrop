@@ -11,6 +11,7 @@ import android.util.Log;
 import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
 import com.epicfalldown.objects.Clear;
+import com.epicfalldown.objects.Doom;
 import com.epicfalldown.objects.PowerUp;
 import com.epicfalldown.objects.Spike;
 import com.epicfalldown.objects.Gat;
@@ -146,7 +147,7 @@ public class GameFallDown extends Game {
 
 					public void run() {
 						GameBoard board = getGameBoard();
-
+						updateDoomBlock();
 						updatePowerUp();
 						board.updateView();
 					}
@@ -265,12 +266,18 @@ public class GameFallDown extends Game {
 				endCurrentGame(true);
 
 			}
+
+			if (objectAtNewPos.getPowerType() == PowerType.DoomMode) {
+				board.removeObject(board.getObject(xNew, y));
+				increaseScore(2);
+				replaceToSpikes();
+				board.updateView();
+			}
 			if (objectAtNewPos.getPowerType() == PowerType.TotalAnihilation) {
 				board.removeAllObjects();
-				board.addGameObject(new Ball(), xNew, y);
+				board.addGameObject(new Ball(), x, y);
 				increaseScore(2);
 				board.updateView();
-				return;
 			}
 		} else {
 			// Move the ball and give the signal to redraw the board
@@ -291,6 +298,7 @@ public class GameFallDown extends Game {
 
 			tTask.cancel();
 			tTask2.cancel();
+			tTask3.cancel();
 			intent = new Intent(activity, DoodMenu.class);
 			if (null != intent) {
 				activity.startActivity(intent);
@@ -301,6 +309,7 @@ public class GameFallDown extends Game {
 
 			tTask.cancel();
 			tTask2.cancel();
+			tTask3.cancel();
 			intent = new Intent(activity, StartMenu.class);
 			if (null != intent) {
 				activity.startActivity(intent);
@@ -351,10 +360,19 @@ public class GameFallDown extends Game {
 					increaseScore(2);
 					Log.d(TAG, "CLEAR");
 
+				} else if ((board.getObject(x, y) instanceof Ball)
+						&& ((board.getObject(x, (y + 1)) instanceof Doom))) {
+					board.removeObject(board.getObject(x, y + 1));
+					replaceToSpikes();
+					increaseScore(3);
+					Log.d(TAG, "Doom");
+
+
 				} else if ((board.getObject(x, y) instanceof Balk)
 						|| (board.getObject(x, y) instanceof Spike)
 						|| (board.getObject(x, y) instanceof Gat || (board
-								.getObject(x, y) instanceof Clear))) {
+								.getObject(x, y) instanceof Clear || 
+								(board.getObject(x, y) instanceof Doom)))) {
 					board.moveObject(board.getObject(x, y), x, (y - 1));
 					Log.d(TAG, "Object (obstacle) has moved");
 
@@ -454,7 +472,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(new Gat(), 4, 12);
 
-		} else {
+		} else if (i ==8){
 
 			GameBoard board = getGameBoard();
 
@@ -463,6 +481,10 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Gat(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
+		} else {
+			GameBoard board = getGameBoard();
+			
+			board.addGameObject(new Doom(), 2, 12);
 		}
 	}
 
@@ -493,12 +515,14 @@ public class GameFallDown extends Game {
 	 * @return return de nummer dat is gemaakt in de methode.
 	 */
 	public int randomNumber() {
-		int number = (int) (Math.random() * 8);
+		int number = (int) (Math.random() * 12);
 		Log.d(TAG, (Integer.toString(number)));
 		return number;
 	}
+
 	/**
 	 * Een methode om de int score terug te geven
+	 * 
 	 * @return int score
 	 */
 	public static int getScore() {
@@ -506,13 +530,15 @@ public class GameFallDown extends Game {
 	}
 
 	/**
-	 * Checkt welk object onder het Ball-object zit. Deze methode returned als het object
-	 * een spike it. Voert endCurrentGame(true) uit als het object een spike is. Voert 
-	 * IncreaseScore als het object een gat is. En Removed alle objecten en voegt de
-	 * Player, het Ball-bject, toe aan de array
+	 * Checkt welk object onder het Ball-object zit. Deze methode returned als
+	 * het object een spike it. Voert endCurrentGame(true) uit als het object
+	 * een spike is. Voert IncreaseScore als het object een gat is. En Removed
+	 * alle objecten en voegt de Player, het Ball-bject, toe aan de array
 	 * 
-	 * @param x 			De x positie van de Bal
-	 * @param y				De y positie van de Bal
+	 * @param x
+	 *            De x positie van de Bal
+	 * @param y
+	 *            De y positie van de Bal
 	 */
 	public void pogingBalValt(int x, int y) {
 
@@ -548,7 +574,14 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Ball(), x, y + 1);
 			board.moveObject(board.getObject(x, y), x, y + 1);
 			increaseScore(2);
+			board.updateView();
 			return;
+		}
+
+		if (board.getObject(x, y + 1) instanceof Doom) {
+			board.removeObject(board.getObject(x, y + 1));
+			replaceToSpikes();
+			increaseScore(3);
 		}
 
 		// check of er een powerup onder de bal zit en pakt de powerup dan
@@ -563,10 +596,10 @@ public class GameFallDown extends Game {
 	}
 
 	/**
-	 * checks if the the PowerUp can move. If the powerUp hits the left wall
-	 * it will be placed on the right side of the screen. if the powerUp hits
-	 * the player while updating delete all items on the board if the powerUp
-	 * is a Clear-Powerup.	
+	 * checks if the the PowerUp can move. If the powerUp hits the left wall it
+	 * will be placed on the right side of the screen. if the powerUp hits the
+	 * player while updating delete all items on the board if the powerUp is a
+	 * Clear-Powerup.
 	 */
 	public void updatePowerUp() {
 
@@ -587,6 +620,8 @@ public class GameFallDown extends Game {
 					xOld = 0;
 				}
 
+				////////////////////
+
 				if ((board.getObject(c, d) instanceof Clear)
 						&& (board.getObject(xOld, (d)) instanceof Ball)) {
 					board.removeObject(board.getObject(c, d));
@@ -595,9 +630,9 @@ public class GameFallDown extends Game {
 					increaseScore(2);
 					board.updateView();
 				}
-				
-				if ((board.getObject(0, d) instanceof Clear) 
-						&& (board.getObject(4, d-1)instanceof Ball)){
+
+				if ((board.getObject(0, d) instanceof Clear)
+						&& (board.getObject(4, (d - 1)) instanceof Ball)) {
 
 					board.removeObject(board.getObject(0, d));
 					board.removeAllObjects();
@@ -612,6 +647,67 @@ public class GameFallDown extends Game {
 				}
 			}
 			board.updateView();
+		}
+	}
+
+	public void replaceToSpikes() {
+		Log.d(TAG, "replacing");
+
+		GameBoard board = getGameBoard();
+		for (int c = 0; c < board.getWidth(); c++) {
+			for (int d = 0; d < board.getHeight(); d++) {
+
+				if (board.getObject(c, d) instanceof Balk) {
+					board.removeObject(board.getObject(c, d));
+					board.addGameObject(new Spike(), c, d);
+				}
+
+			}
+		}
+		board.updateView();
+	}
+	public void updateDoomBlock() {
+
+		GameBoard board = getGameBoard();
+
+		for (int c = 0; c < board.getWidth(); c++) {
+			for (int d = 0; d < board.getHeight(); d++) {
+				Log.d(TAG, "update PowerUps");
+
+				int xOld = c;
+				int yOld = d;
+
+				xOld = xOld + 1;
+
+				if (xOld < 0) {
+					xOld = 4;
+				} else if (xOld > 4) {
+					xOld = 0;
+				}
+				
+				if ((board.getObject(c, d) instanceof Doom)
+						&& (board.getObject(xOld, (d)) instanceof Ball)) {
+					board.removeObject(board.getObject(c, d));
+					replaceToSpikes();
+					increaseScore(3);
+					board.updateView();
+				}
+
+				if ((board.getObject(4, d) instanceof Doom)
+						&& (board.getObject(0, (d - 1)) instanceof Ball)) {
+
+					board.removeObject(board.getObject(4, d));
+
+					replaceToSpikes();
+					increaseScore(3);
+					board.updateView();
+				}
+				if (board.getObject(c, d) instanceof Doom) {
+					board.moveObject(board.getObject(c, d), (xOld), d);
+					board.updateView();
+					return;
+				}
+			}
 		}
 	}
 

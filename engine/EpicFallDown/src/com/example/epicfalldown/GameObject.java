@@ -57,6 +57,8 @@ public abstract class GameObject {
 		TotalAnihilation,
 		
 		GoldOne,
+		
+		DoomMode,
 
 	};
 
