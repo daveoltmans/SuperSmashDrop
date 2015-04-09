@@ -14,6 +14,13 @@ import com.example.epicfalldown.R;
 public class ModeSpinnerAdapter extends ArrayAdapter<String> {
 	private List<String> modes;
 	
+	/**
+	 * Maakt een modespinner aan, in deze game voor de moeilijksgraad
+	 * 
+	 * @param context 	de Context dei wordt meegegeven 
+	 * @param resource	De resource die wordt meegegeven
+	 * @param objects	De lijst met objecten
+	 */
 	public ModeSpinnerAdapter(Context context, int resource,
 			List<String> objects) {
 		super(context, resource, objects);
@@ -21,6 +28,9 @@ public class ModeSpinnerAdapter extends ArrayAdapter<String> {
 		
 	}
 	
+	
+	//Zowel de getView als getDropDownView groepen de getCustomView aan
+	//Deze doet niet anders dan de view terug geven die dan op dat moment wordt gevaagd 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return getCustomView(position, convertView, parent);
