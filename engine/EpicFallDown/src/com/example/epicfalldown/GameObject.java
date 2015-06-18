@@ -49,7 +49,8 @@ public abstract class GameObject {
 		 * Objects that penalise the player when touched by the Type.Ball (e.g.
 		 * the Poison Mushrooms from the Super Mario series)
 		 */
-		PowerDown
+		PowerDown,
+		Random,
 	};
 
 	public enum PowerType {
@@ -59,6 +60,8 @@ public abstract class GameObject {
 		GoldOne,
 		
 		DoomMode,
+		
+		RandomMode,
 
 	};
 

@@ -13,6 +13,7 @@ import com.epicfalldown.objects.Balk;
 import com.epicfalldown.objects.Clear;
 import com.epicfalldown.objects.Doom;
 import com.epicfalldown.objects.PowerUp;
+import com.epicfalldown.objects.Random;
 import com.epicfalldown.objects.Spike;
 import com.epicfalldown.objects.Gat;
 import com.example.epicfalldown.DoodMenu;
@@ -39,6 +40,7 @@ public class GameFallDown extends Game {
 	private static TimerTask tTask;
 	private static TimerTask tTask2;
 	private static TimerTask tTask3;
+	private static TimerTask tTask4;
 
 	private static Intent intent;
 
@@ -77,6 +79,7 @@ public class GameFallDown extends Game {
 		double t2 = 750;
 		double t3 = 1500;
 		double t4 = 500;
+		double t5 = 350;
 		// setting given GameMode
 		if (mode.equals("Easy")) {
 			Log.d("DEBUG", mode);
@@ -86,6 +89,7 @@ public class GameFallDown extends Game {
 			t2 = t2 * 0.75;
 			t3 = t3 * 0.75;
 			t4 = t4 * 0.75;
+			t5 = t5 * 0.75;
 
 		} else if (mode.equals("Hard")) {
 			Log.d("DEBUG", mode);
@@ -93,6 +97,7 @@ public class GameFallDown extends Game {
 			t2 = t2 * 0.5;
 			t3 = t3 * 0.5;
 			t4 = t4 * 0.5;
+			t5 = t4 * 0.5;
 
 		} else {
 			Log.d("DEBUG", "Mode gaat niet goed");
@@ -154,6 +159,25 @@ public class GameFallDown extends Game {
 				});
 			}
 		};
+		
+		tTask4 = new TimerTask(){
+
+			@Override
+			public void run() {
+				
+				activity.runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						GameBoard board = getGameBoard();
+						updateRandom();
+						board.updateView();
+						
+						
+					}
+				});
+			}
+		};
 
 		GameBoard board = getGameBoard();
 		board.removeAllObjects();
@@ -169,6 +193,7 @@ public class GameFallDown extends Game {
 			t.scheduleAtFixedRate(tTask, 0, (int) t1);
 			t.scheduleAtFixedRate(tTask2, 0, (int) t2);
 			t.scheduleAtFixedRate(tTask3, 0, (int) t2);
+			t.scheduleAtFixedRate(tTask4, 0, (int) t3);
 
 			running = true;
 			return;
@@ -178,6 +203,7 @@ public class GameFallDown extends Game {
 			t.scheduleAtFixedRate(tTask, 0, (int) t3);
 			t.scheduleAtFixedRate(tTask2, 0, (int) t4);
 			t.scheduleAtFixedRate(tTask3, 0, (int) t4);
+			t.scheduleAtFixedRate(tTask4, 0, (int) t5);
 		}
 
 	}
@@ -277,6 +303,10 @@ public class GameFallDown extends Game {
 				board.removeAllObjects();
 				board.addGameObject(new Ball(), x, y);
 				increaseScore(2);
+				board.updateView();
+			}
+			if (objectAtNewPos.getPowerType() == PowerType.RandomMode) {
+				updateRandom();
 				board.updateView();
 			}
 		} else {
@@ -709,6 +739,55 @@ public class GameFallDown extends Game {
 				}
 			}
 		}
+	}
+	
+	public void updateRandom(){
+		GameBoard board = getGameBoard();
+
+		for (int c = 0; c < board.getWidth(); c++) {
+			for (int d = 0; d < board.getHeight(); d++) {
+				Log.d(TAG, "update random");
+
+				int xOld = c;
+				int yOld = d;
+
+				xOld = xOld + 1;
+
+				if (xOld < 0) {
+					xOld = 4;
+				} else if (xOld > 4) {
+					xOld = 0;
+				}
+				
+				
+				int number =  (int) (Math.random()*2);
+				Log.d("DEBUG","random nummer" + number);
+				if ((board.getObject(c, d) instanceof Random)
+						&& (board.getObject(xOld, (d)) instanceof Ball)) {
+					if (number == 1){
+						replaceToSpikes();
+					}else{
+						board.removeAllObjects();
+						board.addGameObject(new Ball(), xOld, d);
+					}
+					board.updateView();
+				}
+
+				if ((board.getObject(0, d) instanceof Random)
+						&& (board.getObject(4, (d - 1)) instanceof Ball)) {
+					if (number == 1){
+						replaceToSpikes();
+					}else{
+						board.removeAllObjects();
+						board.addGameObject(new Ball(), xOld, d);
+					}
+					board.updateView();
+				}
+			}
+			board.updateView();
+		}
+				
+				
 	}
 
 }
