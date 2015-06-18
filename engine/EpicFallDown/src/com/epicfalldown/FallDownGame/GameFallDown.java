@@ -231,7 +231,7 @@ public class GameFallDown extends Game {
 	 *            The direction in which the ball should move (e.g.
 	 *            SwipeGestureFilter.SWIPE_LEFT)
 	 */
-	public void swipeBall(int swipeDirection) {
+	public Boolean swipeBall(int swipeDirection) {
 		GameBoard board = getGameBoard();
 		int x = 0, xNew = 0, y = 0;
 
@@ -251,16 +251,9 @@ public class GameFallDown extends Game {
 			xNew = x - 1;
 		else if (swipeDirection == SwipeGestureFilter.SWIPE_RIGHT)
 			xNew = x + 1;
-		else {
-			// Niek, hier komt jouw methode te staan. Vergeet niet dat je een
-			// Boolean (true) moet teruggeven als de bal
-			// een balk raakt. De 'null' achter return vervang je door jouw
-			// methode.
-
-			// return null;
-
+		else if (swipeDirection == SwipeGestureFilter.SWIPE_DOWN) {
 			pogingBalValt(x, y);
-			return;
+			return false;
 		}
 
 		// If new position is over the edge of the board, do nothing
@@ -277,7 +270,7 @@ public class GameFallDown extends Game {
 			// The ball can't move through bars :(
 			if (objectAtNewPos.getObjectType() == Type.Obstacle) {
 				board.updateView();
-				return;
+				return true;
 			}
 
 			// Lucky! The ball just hit a Power-Up!
@@ -314,6 +307,7 @@ public class GameFallDown extends Game {
 			board.moveObject(board.getObject(x, y), xNew, y);
 			board.updateView();
 		}
+		return false;
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package com.example.epicfalldown;
 
+import java.util.HashMap;
+
 import com.epicfalldown.FallDownGame.FallDownGameBoardView;
 import com.epicfalldown.FallDownGame.GameFallDown;
 import com.epicfalldown.FallDownGame.SwipeGestureFilter;
@@ -7,6 +9,8 @@ import com.epicfalldown.FallDownGame.SwipeGestureFilter.SimpleGestureListener;
 import com.example.epicfalldown.R;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -26,6 +30,12 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 	private GameFallDown game;
 	private FallDownGameBoardView gameView;
 	private TextView scoreLabel;
+	
+	// Deprecated from API level 21 onwards, 
+	// but this project still targets API level 8 as the minimum version, so let's ignore that warning.
+	@SuppressWarnings("deprecation")
+	private SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 100);
+	private HashMap<Integer, Integer> soundMap = new HashMap<Integer, Integer>();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,6 +50,9 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 		// Find some of the user interface elements
 		gameView = (FallDownGameBoardView) findViewById(R.id.game);
 		scoreLabel = (TextView) findViewById(R.id.scoreTextView);
+		
+		// Initialises the sound effects used in the game
+		initSounds();
 
 		// Create the game object. This contains all data and functionality
 		// belonging to the game
@@ -104,14 +117,14 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 		{
 			// Simulates left swipe
 			case KeyEvent.KEYCODE_DPAD_LEFT:
-				game.swipeBall(SwipeGestureFilter.SWIPE_LEFT);
+				if (game.swipeBall(SwipeGestureFilter.SWIPE_LEFT)) playSoundFX(R.raw.sfx_smashball_hit);
 				return true;
 			// Simulates right swipe
 			case KeyEvent.KEYCODE_DPAD_RIGHT:
-				game.swipeBall(SwipeGestureFilter.SWIPE_RIGHT);
+				if (game.swipeBall(SwipeGestureFilter.SWIPE_RIGHT)) playSoundFX(R.raw.sfx_smashball_hit);
 				return true;
 			case KeyEvent.KEYCODE_DPAD_DOWN:
-				game.swipeBall(SwipeGestureFilter.SWIPE_DOWN);
+				if (game.swipeBall(SwipeGestureFilter.SWIPE_DOWN)) playSoundFX(R.raw.sfx_smashball_hit);
 				return true;
 			// Not left/right/down arrow, so let's send it back to the original method
 			default:
@@ -125,7 +138,27 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 	@Override
 	public void onSwipe(int direction)
 	{
-		game.swipeBall(direction);
+		if (game.swipeBall(direction)) playSoundFX(R.raw.sfx_smashball_hit);
+		
+	}
+	
+	/**
+	 * Initialises the sound effects used in the game
+	 */
+	public void initSounds()
+	{
+		soundMap.put(R.raw.sfx_smashball_hit, soundPool.load(this, R.raw.sfx_smashball_hit, 1));
+	}
+	
+	/**
+	 * Plays a sound effect. Doesn't loop.
+	 * 
+	 * @param soundEffect
+	 *            The sfx to be played	
+	 */
+	public void playSoundFX(int soundEffect)
+	{
+		soundPool.play(soundMap.get(soundEffect), 1f, 1f, 1, 0, 1f);
 	}
 	  
 	 @Override
