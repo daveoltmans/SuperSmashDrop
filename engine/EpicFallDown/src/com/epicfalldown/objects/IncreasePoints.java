@@ -1,7 +1,8 @@
 package com.epicfalldown.objects;
 
-public class Random extends PowerUp {
-	public static final String QUESTION_IMAGE = "questionblock";
+
+public class IncreasePoints extends PowerUp{
+	public static final String INCREASE_IMAGE = "mushroom";
 	@Override
 	public Type getObjectType() {
 		// TODO Auto-generated method stub
@@ -11,12 +12,12 @@ public class Random extends PowerUp {
 	@Override
 	public String getImageId() {
 		// TODO Auto-generated method stub
-		return QUESTION_IMAGE;
+		return INCREASE_IMAGE;
 	}
 
 	@Override
 	public PowerType getPowerType() {
 		// TODO Auto-generated method stub
-		return PowerType.RandomMode;
+		return PowerType.Increase;
 	}
 }

@@ -4,7 +4,7 @@
     <string name="app_name">EpicFallDown</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="score">score</string>
+    <string name="score"></string>
     <string name="newgame">newgame</string>
     <string name="restart">restart</string>
     <string name="menu">menu</string>

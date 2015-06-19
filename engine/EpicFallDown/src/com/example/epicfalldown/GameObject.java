@@ -62,6 +62,8 @@ public abstract class GameObject {
 		DoomMode,
 		
 		RandomMode,
+		
+		Increase,
 
 	};
 

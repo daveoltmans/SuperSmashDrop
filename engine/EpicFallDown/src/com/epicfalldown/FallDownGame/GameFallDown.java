@@ -12,6 +12,7 @@ import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
 import com.epicfalldown.objects.Clear;
 import com.epicfalldown.objects.Doom;
+import com.epicfalldown.objects.IncreasePoints;
 import com.epicfalldown.objects.PowerUp;
 import com.epicfalldown.objects.Random;
 import com.epicfalldown.objects.Spike;
@@ -154,6 +155,8 @@ public class GameFallDown extends Game {
 						GameBoard board = getGameBoard();
 						updateDoomBlock();
 						updatePowerUp();
+						updateRandom();
+						updateIncreasePoints();
 						board.updateView();
 					}
 				});
@@ -170,7 +173,6 @@ public class GameFallDown extends Game {
 					@Override
 					public void run() {
 						GameBoard board = getGameBoard();
-						updateRandom();
 						board.updateView();
 						
 						
@@ -302,6 +304,11 @@ public class GameFallDown extends Game {
 				updateRandom();
 				board.updateView();
 			}
+			
+			if (objectAtNewPos.getPowerType() == PowerType.Increase) {
+				increaseScore(10);
+				board.updateView();
+			}
 		} else {
 			// Move the ball and give the signal to redraw the board
 			board.moveObject(board.getObject(x, y), xNew, y);
@@ -390,13 +397,28 @@ public class GameFallDown extends Game {
 					replaceToSpikes();
 					increaseScore(3);
 					Log.d(TAG, "Doom");
+					
+				} else if ((board.getObject(x, y) instanceof Ball)
+						&& ((board.getObject(x, (y + 1)) instanceof IncreasePoints))) {
+					board.removeObject(board.getObject(x, y + 1));
+					increaseScore(10);
+					Log.d(TAG, "Increase Points");
+					
+				} else if ((board.getObject(x, y) instanceof Ball)
+						&& ((board.getObject(x, (y + 1)) instanceof Random))) {
+					board.removeObject(board.getObject(x, y + 1));
+					updateRandom();
+					board.updateView();
+					Log.d(TAG, "Random");
 
 
 				} else if ((board.getObject(x, y) instanceof Balk)
 						|| (board.getObject(x, y) instanceof Spike)
-						|| (board.getObject(x, y) instanceof Gat || (board
-								.getObject(x, y) instanceof Clear || 
-								(board.getObject(x, y) instanceof Doom)))) {
+						|| (board.getObject(x, y) instanceof Gat) || (board
+								.getObject(x, y) instanceof Clear) || 
+								(board.getObject(x, y) instanceof Doom) || 
+								(board.getObject(x, y) instanceof IncreasePoints) ||
+								(board.getObject(x, y) instanceof Random)) {
 					board.moveObject(board.getObject(x, y), x, (y - 1));
 					Log.d(TAG, "Object (obstacle) has moved");
 
@@ -431,7 +453,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(returnRandomObject(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
-		} else if (i == 1) {
+		} else if (i == 1 || i ==12) {
 
 			GameBoard board = getGameBoard();
 
@@ -442,7 +464,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Gat(), 4, 12);
 		}
 
-		else if (i == 2) {
+		else if (i == 2 || i == 13) {
 
 			GameBoard board = getGameBoard();
 
@@ -460,7 +482,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Clear(), 2, 12);
 		}
 
-		else if (i == 4) {
+		else if (i == 4 || i == 14) {
 
 			GameBoard board = getGameBoard();
 
@@ -469,7 +491,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(returnRandomObject(), 2, 12);
 			board.addGameObject(new Gat(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
-		} else if (i == 5) {
+		} else if (i == 5 || i == 15) {
 			GameBoard board = getGameBoard();
 
 			board.addGameObject(returnRandomObject(), 0, 12);
@@ -478,7 +500,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Gat(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
 
-		} else if (i == 6) {
+		} else if (i == 6 || i == 16) {
 			GameBoard board = getGameBoard();
 
 			board.addGameObject(new Gat(), 0, 12);
@@ -486,7 +508,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Gat(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(new Gat(), 4, 12);
-		} else if (i == 7) {
+		} else if (i == 7 || i == 17) {
 
 			GameBoard board = getGameBoard();
 
@@ -496,7 +518,7 @@ public class GameFallDown extends Game {
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(new Gat(), 4, 12);
 
-		} else if (i ==8){
+		} else if (i ==8 || i == 18){
 
 			GameBoard board = getGameBoard();
 
@@ -505,10 +527,20 @@ public class GameFallDown extends Game {
 			board.addGameObject(new Gat(), 2, 12);
 			board.addGameObject(returnRandomObject(), 3, 12);
 			board.addGameObject(returnRandomObject(), 4, 12);
-		} else {
+		} else if (i == 9){
 			GameBoard board = getGameBoard();
 			
 			board.addGameObject(new Doom(), 2, 12);
+		} else if (i == 10){
+			GameBoard board = getGameBoard();
+			
+			board.addGameObject(new Random(), 2, 12);
+		}
+		
+		else if (i == 11){
+			GameBoard board = getGameBoard();
+			
+			board.addGameObject(new IncreasePoints(), 2, 12);
 		}
 	}
 
@@ -518,7 +550,7 @@ public class GameFallDown extends Game {
 	 * @return
 	 */
 	public GameObject returnRandomObject() {
-		int number = (int) (Math.random() * 9);
+		int number = (int) (Math.random() * 11);
 		if (number == 5) {
 			return new Spike();
 		} else {
@@ -539,7 +571,7 @@ public class GameFallDown extends Game {
 	 * @return return de nummer dat is gemaakt in de methode.
 	 */
 	public int randomNumber() {
-		int number = (int) (Math.random() * 12);
+		int number = (int) (Math.random() * 18);
 		Log.d(TAG, (Integer.toString(number)));
 		return number;
 	}
@@ -606,6 +638,15 @@ public class GameFallDown extends Game {
 			board.removeObject(board.getObject(x, y + 1));
 			replaceToSpikes();
 			increaseScore(3);
+		}
+		if (board.getObject(x, y + 1) instanceof IncreasePoints) {
+			board.removeObject(board.getObject(x, y + 1));
+			increaseScore(10);
+		}
+		
+		if (board.getObject(x, y + 1) instanceof Random) {
+			board.removeObject(board.getObject(x, y + 1));
+			updateRandom();
 		}
 
 		// check of er een powerup onder de bal zit en pakt de powerup dan
@@ -766,6 +807,8 @@ public class GameFallDown extends Game {
 					}
 					board.updateView();
 				}
+				
+				
 
 				if ((board.getObject(0, d) instanceof Random)
 						&& (board.getObject(4, (d - 1)) instanceof Ball)) {
@@ -782,6 +825,50 @@ public class GameFallDown extends Game {
 		}
 				
 				
+	}
+	
+	public void updateIncreasePoints() {
+
+		GameBoard board = getGameBoard();
+
+		for (int c = 0; c < board.getWidth(); c++) {
+			for (int d = 0; d < board.getHeight(); d++) {
+				Log.d(TAG, "update PowerUps");
+
+				int xOld = c;
+				int yOld = d;
+
+				xOld = xOld + 1;
+
+				if (xOld < 0) {
+					xOld = 4;
+				} else if (xOld > 4) {
+					xOld = 0;
+				}
+				
+				if ((board.getObject(c, d) instanceof IncreasePoints)
+						&& (board.getObject(xOld, (d)) instanceof Ball)) {
+					board.removeObject(board.getObject(c, d));
+					
+					increaseScore(10);
+					board.updateView();
+				}
+
+				if ((board.getObject(4, d) instanceof IncreasePoints)
+						&& (board.getObject(0, (d - 1)) instanceof Ball)) {
+
+					board.removeObject(board.getObject(4, d));
+
+					increaseScore(10);
+					board.updateView();
+				}
+				if (board.getObject(c, d) instanceof IncreasePoints) {
+					board.moveObject(board.getObject(c, d), (xOld), d);
+					board.updateView();
+					return;
+				}
+			}
+		}
 	}
 
 }
