@@ -29,8 +29,7 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 	private SwipeGestureFilter detector;
 	private GameFallDown game;
 	private FallDownGameBoardView gameView;
-	private TextView scoreLabel;
-	
+
 	// Deprecated from API level 21 onwards, 
 	// but this project still targets API level 8 as the minimum version, so let's ignore that warning.
 	@SuppressWarnings("deprecation")
@@ -49,8 +48,7 @@ public class MainActivity extends Activity implements SimpleGestureListener{
 
 		// Find some of the user interface elements
 		gameView = (FallDownGameBoardView) findViewById(R.id.game);
-		scoreLabel = (TextView) findViewById(R.id.scoreTextView);
-		
+
 		// Initialises the sound effects used in the game
 		initSounds();
 
