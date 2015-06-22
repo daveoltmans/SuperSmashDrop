@@ -64,6 +64,8 @@ public abstract class GameObject {
 		RandomMode,
 		
 		Increase,
+		
+		Decrease,
 
 	};
 

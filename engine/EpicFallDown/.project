@@ -3,7 +3,7 @@
 	<name>EpicFallDown</name>
 	<comment></comment>
 	<projects>
-		<project>appcompat_v7</project>
+		<project>android-support-v7-appcompat</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -5,6 +5,7 @@ import com.epicfalldown.View.SpriteCache;
 import com.epicfalldown.objects.Ball;
 import com.epicfalldown.objects.Balk;
 import com.epicfalldown.objects.Clear;
+import com.epicfalldown.objects.DecreasePoints;
 import com.epicfalldown.objects.Doom;
 import com.epicfalldown.objects.IncreasePoints;
 import com.epicfalldown.objects.Leaf;
@@ -61,6 +62,7 @@ public class FallDownGameBoardView extends GameBoardView {
 		spriteCache.loadTile(Doom.GHOST_IMAGE, R.drawable.ghost);
 		spriteCache.loadTile(Random.QUESTION_IMAGE, R.drawable.questionblock);
 		spriteCache.loadTile(IncreasePoints.INCREASE_IMAGE, R.drawable.mushroom);
+		spriteCache.loadTile(DecreasePoints.DECREASE_IMAGE, R.drawable.mushroom);
 		setEmptyTile("empty");
 		
 		// Load the images for the GameObjects
