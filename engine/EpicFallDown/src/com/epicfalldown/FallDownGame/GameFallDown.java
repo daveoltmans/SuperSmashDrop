@@ -1000,5 +1000,16 @@ public class GameFallDown extends Game {
 			}
 		}
 	}
+	
+	public boolean isPauzed() {
+		GameBoard board = getGameBoard();
+		return board.getPauzed();
+	}
 
+	public void togglePauze() {
+		GameBoard board = getGameBoard();
+		board.updateView();
+		board.pause(!board.getPauzed());
+		
+	}
 }
