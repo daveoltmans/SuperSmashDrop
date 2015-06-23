@@ -120,11 +120,8 @@ public class GameFallDown extends Game {
 						Log.d("UI thread", "I am the UI thread");
 
 						Log.d(TAG, " Timer gaat af");
-						if (!board.getPauzed()) {
 							Running();
 							board.updateView();
-						}
-
 					}
 				});
 			};
@@ -139,10 +136,8 @@ public class GameFallDown extends Game {
 					public void run() {
 						GameBoard board = getGameBoard();
 
-						if (!board.getPauzed()) {
 							UpdateSpikes();
 							board.updateView();
-						}
 					}
 				});
 			}
@@ -157,14 +152,12 @@ public class GameFallDown extends Game {
 
 					public void run() {
 						GameBoard board = getGameBoard();
-						if (!board.getPauzed()) {
 							updateDoomBlock();
 							updatePowerUp();
 							updateRandom();
 							updateIncreasePoints();
 							updateDecreasePoints();
 							board.updateView();
-						}
 					}
 				});
 			}
@@ -180,9 +173,7 @@ public class GameFallDown extends Game {
 					@Override
 					public void run() {
 						GameBoard board = getGameBoard();
-						if (!board.getPauzed()) {
 							board.updateView();
-						}
 					}
 				});
 			}
@@ -1005,17 +996,5 @@ public class GameFallDown extends Game {
 				}
 			}
 		}
-	}
-	
-	public boolean isPauzed() {
-		GameBoard board = getGameBoard();
-		return board.getPauzed();
-	}
-
-	public void togglePauze() {
-		GameBoard board = getGameBoard();
-		board.updateView();
-		board.pause(!board.getPauzed());
-		
 	}
 }
