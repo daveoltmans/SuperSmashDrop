@@ -341,16 +341,16 @@ public abstract class GameBoardView extends View implements Observer {
 		super.onDraw(canvas);
 
 		Paint strokePaint = new Paint();
-		strokePaint.setARGB(255, 0, 0, 255);
+		strokePaint.setARGB(255, 0, 0, 0);
 		strokePaint.setStyle(Paint.Style.STROKE);
 		Rect r = canvas.getClipBounds();
 		// canvas.drawRect(outline, strokePaint) ;
 		int gameWidth = mTileSize * tileCountX;
 		int gameHeight = mTileSize * tileCountY;
 		int borderWidth = (r.width() - gameWidth) / 2;
-		strokePaint.setStrokeWidth(borderWidth);
-		canvas.drawLine((borderWidth / 2) + 1, 1, (borderWidth / 2) + 1, r.bottom - 1, strokePaint);
-		canvas.drawLine(r.width() - (borderWidth / 2), 1, r.width()	- (borderWidth / 2), r.bottom - 1, strokePaint);
+		strokePaint.setStrokeWidth(5);
+		canvas.drawLine(borderWidth , 1, borderWidth, r.bottom - 1, strokePaint);
+		canvas.drawLine(r.width() - borderWidth, 1, r.width()	- borderWidth, r.bottom - 1, strokePaint);
 		
 		// For each tile on the board ...
 		for (int x = 0; x < tileCountX; x++) {
@@ -372,8 +372,7 @@ public abstract class GameBoardView extends View implements Observer {
 		Paint textPaint = new Paint();
 		textPaint.setTextSize(32);
 		canvas.drawText(("Score: " + GameFallDown.getScore()), 0, 32, textPaint);
-		if (this.board.getPauzed())
-			canvas.drawText("PAUZED", gameWidth, gameHeight/2, textPaint);	
+			
 		this.setBackgroundColor(backgroundColor());
 		
 		this.setBackgroundResource(R.drawable.afbeelding1);
