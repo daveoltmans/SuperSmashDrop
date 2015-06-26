@@ -3,7 +3,6 @@ package com.epicfalldown.FallDownGame;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.R;
 import android.R.bool;
 import android.content.Intent;
 import android.util.Log;
@@ -26,6 +25,7 @@ import com.example.epicfalldown.GameObject.PowerType;
 import com.example.epicfalldown.MainActivity;
 import com.example.epicfalldown.GameObject.Type;
 import com.example.epicfalldown.StartMenu;
+import com.example.epicfalldown.R;
 
 public class GameFallDown extends Game {
 	/** Tag used for log messages */

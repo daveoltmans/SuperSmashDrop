@@ -339,12 +339,16 @@ public abstract class GameBoardView extends View implements Observer {
 	@Override
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		
+		Rect r = canvas.getClipBounds();
+		
+		Drawable drawable = this.getResources().getDrawable(R.drawable.background1);
+		drawable.setBounds(r);
+		drawable.draw(canvas);
 
 		Paint strokePaint = new Paint();
 		strokePaint.setARGB(255, 0, 0, 0);
 		strokePaint.setStyle(Paint.Style.STROKE);
-		Rect r = canvas.getClipBounds();
-		// canvas.drawRect(outline, strokePaint) ;
 		int gameWidth = mTileSize * tileCountX;
 		int gameHeight = mTileSize * tileCountY;
 		int borderWidth = (r.width() - gameWidth) / 2;
@@ -372,10 +376,8 @@ public abstract class GameBoardView extends View implements Observer {
 		Paint textPaint = new Paint();
 		textPaint.setTextSize(32);
 		canvas.drawText(("Score: " + GameFallDown.getScore()), 0, 32, textPaint);
-			
-		this.setBackgroundColor(backgroundColor());
 		
-		this.setBackgroundResource(R.drawable.afbeelding1);
+		this.setBackgroundColor(backgroundColor());
 	}
 	
 	
